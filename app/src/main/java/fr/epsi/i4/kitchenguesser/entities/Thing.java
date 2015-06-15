@@ -1,5 +1,6 @@
 package fr.epsi.i4.kitchenguesser.entities;
 
+import android.app.DownloadManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -90,6 +91,28 @@ public class Thing implements BaseColumns, Comparable<Thing> {
             }
             while (cursor.moveToNext());
         }
+        cursor.close();
         return things;
+    }
+
+    public static Thing findById(int id, SQLiteDatabase db) {
+        Thing thing = null;
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME+" WHERE "+COLUMN_NAME_ID+" ="+id, null);
+        if (cursor.moveToFirst()) {
+            do {
+                thing = new Thing(
+                        cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_NAME)));
+
+                List<ThingQuestion> thingAnswers = ThingQuestion.findByThingId(thing.getId(), db);
+                for (ThingQuestion answer : thingAnswers){
+                    thing.addAnswer(answer.getQuestionId(), answer.getValue());
+                }
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        return thing;
     }
 }

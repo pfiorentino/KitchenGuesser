@@ -1,5 +1,6 @@
 package fr.epsi.i4.kitchenguesser;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
@@ -58,7 +59,9 @@ public class MainActivity extends ActionBarActivity {
         Button yesButton = (Button) findViewById(R.id.yesButton);
         yesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                addAnswer(1);
+                //addAnswer(1);
+                Thing myThing = new Thing(3,"pipo");
+                thingFound(myThing);
             }
         });
 
@@ -111,6 +114,12 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        db.close();
     }
 
     private void initializeDB() {
@@ -251,5 +260,13 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return output;
+    }
+
+    private void thingFound(Thing thing){
+        Intent intent = new Intent(this, thingFound.class);
+        intent.putExtra("thingId",thing.getId());
+        startActivity(intent);
+
+
     }
 }

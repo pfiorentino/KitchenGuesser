@@ -10,6 +10,19 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".thingFound"
+            android:label="@string/title_activity_thing_found" >
+        </activity>
+        <activity
+            android:name=".successfulGame"
+            android:label="@string/title_activity_successful_game" >
+        </activity>
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
