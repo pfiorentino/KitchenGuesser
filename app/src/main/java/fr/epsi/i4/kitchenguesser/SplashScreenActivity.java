@@ -2,6 +2,7 @@ package fr.epsi.i4.kitchenguesser;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -15,9 +16,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 
-
-public class SplashScreen extends Activity {
-
+public class SplashScreenActivity extends Activity {
     private RelativeLayout accueil = null;
 
     @Override
@@ -29,7 +28,8 @@ public class SplashScreen extends Activity {
         accueil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -45,7 +45,8 @@ public class SplashScreen extends Activity {
 
             // Pour créer la base si elle n'existe pas encore
             KitchenGuesserOpenHelper mDbHelper = new KitchenGuesserOpenHelper(this.getApplicationContext());
-            mDbHelper.getReadableDatabase();
+            SQLiteDatabase db = mDbHelper.getReadableDatabase();
+            db.close();
 
             String dbPath = appDataPath+File.separator+"databases"+File.separator+"KitchenGuesser.db";
             File appDB = new File(dbPath);

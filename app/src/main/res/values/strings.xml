@@ -7,6 +7,8 @@
     <string name="touchforbegin">touchforbegin</string>
     <string name="touchezpourcommencer">Touchez pour commencer !</string>
     <string name="title">Kitchen Guesser</string>
+    <string name="title_activity_selection_thing">SelectionThing</string>
+    <string name="title_activity_add_new_thing">AddNewThing</string>
     <string name="action_debug">Debug</string>
     <string name="thing_found">Vous pensez à un(e) :</string>
     <string name="correct">Est-ce correct ?</string>

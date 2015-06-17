@@ -20,7 +20,7 @@
             android:label="@string/title_activity_successful_game" >
         </activity>
         <activity
-            android:name=".SplashScreen"
+            android:name=".SplashScreenActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:noHistory="true">
@@ -28,6 +28,14 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SelectionThingActivity"
+            android:label="@string/title_activity_selection_thing" >
+        </activity>
+        <activity
+            android:name=".AddNewThingActivity"
+            android:label="@string/title_activity_add_new_thing" >
         </activity>
     </application>
 

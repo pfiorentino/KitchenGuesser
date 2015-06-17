@@ -5,44 +5,30 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
-public class SuccessfulGameActivity extends ActionBarActivity {
+public class AddNewThingActivity extends ActionBarActivity {
 
-    private Button yesButton;
-    private Button noButton;
+    private TextView test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_successful_game);
+        setContentView(R.layout.activity_add_new_thing);
 
-        yesButton = (Button) findViewById(R.id.yesButton);
-        noButton = (Button) findViewById(R.id.noButton);
+        test = (TextView) findViewById(R.id.test);
 
-        noButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                System.exit(0);
-            }
-        });
-
-        yesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SuccessfulGameActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+        Intent intent = getIntent();
+        String nameThing = intent.getStringExtra("name");
+        test.setText(nameThing);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_successful_game, menu);
+        getMenuInflater().inflate(R.menu.menu_add_new_thing, menu);
         return true;
     }
 

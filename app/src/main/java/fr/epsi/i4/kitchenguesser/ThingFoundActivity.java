@@ -53,7 +53,7 @@ public class ThingFoundActivity extends ActionBarActivity {
         noAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ThingFoundActivity.this,MainActivity.class);
+                Intent intent = new Intent(ThingFoundActivity.this,SelectionThingActivity.class);
                 startActivity(intent);
             }
         });
@@ -78,7 +78,7 @@ public class ThingFoundActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_debug) {
             return true;
         }
 
