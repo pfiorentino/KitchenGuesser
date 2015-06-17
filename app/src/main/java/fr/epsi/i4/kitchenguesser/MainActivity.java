@@ -3,7 +3,6 @@ package fr.epsi.i4.kitchenguesser;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -12,12 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
-import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -48,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initializeDB();
+        openDB();
         initializeGame();
 
         currentQuestion = getRandomQuestion();
@@ -59,9 +52,7 @@ public class MainActivity extends ActionBarActivity {
         Button yesButton = (Button) findViewById(R.id.yesButton);
         yesButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //addAnswer(1);
-                Thing myThing = new Thing(3,"pipo");
-                thingFound(myThing);
+                addAnswer(1);
             }
         });
 
@@ -109,7 +100,9 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_debug) {
+            Thing thing = new Thing(3, "Couteau de cuisine");
+            thingFound(thing);
             return true;
         }
 
@@ -122,24 +115,7 @@ public class MainActivity extends ActionBarActivity {
         db.close();
     }
 
-    private void initializeDB() {
-        String dbPath = File.separator+"data"+File.separator+getPackageName()+File.separator+"databases"+File.separator+"KitchenGuesser.db";
-        File appDB = new File(Environment.getDataDirectory(), dbPath);
-        if (!appDB.exists()){
-            try {
-                InputStream src = this.getResources().openRawResource(R.raw.kitchenguesser);
-                ReadableByteChannel rbc = Channels.newChannel(src);
-                FileChannel dst = new FileOutputStream(appDB).getChannel();
-
-                Utils.fastChannelCopy(rbc, dst);
-
-                src.close();
-                dst.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
+    private void openDB() {
         KitchenGuesserOpenHelper mDbHelper = new KitchenGuesserOpenHelper(this.getApplicationContext());
         db = mDbHelper.getReadableDatabase();
     }
@@ -266,7 +242,6 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(this, ThingFoundActivity.class);
         intent.putExtra("thingId",thing.getId());
         startActivity(intent);
-
-
+        finish();
     }
 }

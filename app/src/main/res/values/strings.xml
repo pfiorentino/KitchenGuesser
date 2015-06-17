@@ -1,16 +1,15 @@
 <resources>
-    <string name="app_name">KitchenGuesser</string>
+    <string name="app_name">Kitchen Guesser</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_thing_found">thingFound</string>
     <string name="thingtrouvee">J\'ai trouvé !</string>
     <string name="objetcherché">L\'objet que vous avez cherché est :</string>
     <string name="title_activity_successful_game">successfulGame</string>
-    <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="touchforbegin">touchforbegin</string>
     <string name="touchezpourcommencer">Touchez pour commencer !</string>
     <string name="title">Kitchen Guesser</string>
     <string name="title_activity_selection_thing">SelectionThing</string>
     <string name="title_activity_add_new_thing">AddNewThing</string>
+    <string name="action_debug">Debug</string>
 </resources>
