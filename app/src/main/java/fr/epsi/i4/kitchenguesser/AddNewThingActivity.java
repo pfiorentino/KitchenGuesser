@@ -5,39 +5,30 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
-public class SplashScreen extends ActionBarActivity {
+public class AddNewThingActivity extends ActionBarActivity {
 
-    private RelativeLayout accueil = null;
+    private TextView test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
-        accueil = (RelativeLayout) this.findViewById(R.id.splashScreen);
+        setContentView(R.layout.activity_add_new_thing);
 
-        accueil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                finish();
-                startActivity(intent);
-                // overridePendingTransition (0, 0);
+        test = (TextView) findViewById(R.id.test);
 
-            }
-        });
-
+        Intent intent = getIntent();
+        String nameThing = intent.getStringExtra("name");
+        test.setText(nameThing);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_splash_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_add_new_thing, menu);
         return true;
     }
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import fr.epsi.i4.kitchenguesser.entities.Thing;
 
 
-public class thingFound extends ActionBarActivity {
+public class ThingFoundActivity extends ActionBarActivity {
 
 
     private TextView thing;
@@ -45,7 +45,7 @@ public class thingFound extends ActionBarActivity {
         yesAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(thingFound.this, successfulGame.class);
+                Intent intent = new Intent(ThingFoundActivity.this, SuccessfulGameActivity.class);
                 startActivity(intent);
             }
         });
@@ -53,7 +53,7 @@ public class thingFound extends ActionBarActivity {
         noAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(thingFound.this,MainActivity.class);
+                Intent intent = new Intent(ThingFoundActivity.this,SelectionThingActivity.class);
                 startActivity(intent);
             }
         });

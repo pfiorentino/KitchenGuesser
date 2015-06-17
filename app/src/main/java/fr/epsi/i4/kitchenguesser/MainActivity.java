@@ -263,7 +263,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void thingFound(Thing thing){
-        Intent intent = new Intent(this, thingFound.class);
+        Intent intent = new Intent(this, ThingFoundActivity.class);
         intent.putExtra("thingId",thing.getId());
         startActivity(intent);
 

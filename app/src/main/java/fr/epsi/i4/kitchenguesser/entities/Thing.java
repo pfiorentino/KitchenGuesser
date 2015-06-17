@@ -95,6 +95,29 @@ public class Thing implements BaseColumns, Comparable<Thing> {
         return things;
     }
 
+    public static List<Thing> findByString(SQLiteDatabase db, String name) {
+        List<Thing> things = new ArrayList<Thing>();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE "+COLUMN_NAME_NAME+" LIKE \"%"+name+"%\"", null);
+        if (cursor.moveToFirst()) {
+            do {
+                Thing thing = new Thing(
+                        cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_NAME)));
+
+                List<ThingQuestion> thingAnswers = ThingQuestion.findByThingId(thing.getId(), db);
+                for (ThingQuestion answer : thingAnswers){
+                    thing.addAnswer(answer.getQuestionId(), answer.getValue());
+                }
+
+                things.add(thing);
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        return things;
+    }
+
     public static Thing findById(int id, SQLiteDatabase db) {
         Thing thing = null;
 
