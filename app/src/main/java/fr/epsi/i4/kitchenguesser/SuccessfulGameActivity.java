@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class successfulGame extends ActionBarActivity {
+public class SuccessfulGameActivity extends ActionBarActivity {
 
     private Button yesButton;
     private Button noButton;
@@ -33,7 +33,7 @@ public class successfulGame extends ActionBarActivity {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(successfulGame.this, MainActivity.class);
+                Intent intent = new Intent(SuccessfulGameActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

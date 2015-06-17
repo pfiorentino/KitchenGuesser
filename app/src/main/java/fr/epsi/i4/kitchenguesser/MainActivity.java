@@ -209,6 +209,7 @@ public class MainActivity extends ActionBarActivity {
                 things = (ArrayList) bestThings;
                 currentQuestion = getBestQuestion();
             } else {
+                thingFound(things.get(0));
                 /*if (purposeAnswer(things.get(0), bestPrecision)){
                     addMissingAnswers(things.get(0).getDBObject(em).getId());
                     input = "q";
@@ -239,7 +240,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void thingFound(Thing thing){
-        Intent intent = new Intent(this, thingFound.class);
+        Intent intent = new Intent(this, ThingFoundActivity.class);
         intent.putExtra("thingId",thing.getId());
         startActivity(intent);
         finish();

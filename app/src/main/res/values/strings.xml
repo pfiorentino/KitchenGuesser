@@ -2,12 +2,14 @@
     <string name="app_name">Kitchen Guesser</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_thing_found">thingFound</string>
-    <string name="thingtrouvee">J\'ai trouvé !</string>
-    <string name="objetcherché">L\'objet que vous avez cherché est :</string>
+    <string name="title_activity_thing_found">J\'ai trouvé !</string>
     <string name="title_activity_successful_game">successfulGame</string>
     <string name="touchforbegin">touchforbegin</string>
     <string name="touchezpourcommencer">Touchez pour commencer !</string>
     <string name="title">Kitchen Guesser</string>
     <string name="action_debug">Debug</string>
+    <string name="thing_found">Vous pensez à un(e) :</string>
+    <string name="correct">Est-ce correct ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 </resources>
