@@ -53,4 +53,5 @@
         android:text="Non"
         android:id="@+id/noButton"
         android:layout_gravity="center_horizontal" />
+
 </LinearLayout>
