@@ -39,7 +39,7 @@ public class ThingFoundActivity extends ActionBarActivity {
         KitchenGuesserOpenHelper mDbHelper = new KitchenGuesserOpenHelper(this.getApplicationContext());
         db = mDbHelper.getReadableDatabase();
 
-        Thing thingFound = Thing.findById(thingId,db);
+        final Thing thingFound = Thing.findById(thingId,db);
         thing.setText(thingFound.getName());
 
         yesAnswer.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +54,7 @@ public class ThingFoundActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ThingFoundActivity.this,SelectionThingActivity.class);
+                intent.putExtra("thingFoundName",thingFound.getName());
                 startActivity(intent);
             }
         });

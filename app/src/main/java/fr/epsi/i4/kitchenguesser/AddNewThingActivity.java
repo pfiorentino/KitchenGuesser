@@ -22,7 +22,8 @@ public class AddNewThingActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         String nameThing = intent.getStringExtra("name");
-        test.setText(nameThing);
+        String thingFoundName = intent.getStringExtra("thingFoundName");
+        test.setText(nameThing+"     "+thingFoundName);
     }
 
     @Override

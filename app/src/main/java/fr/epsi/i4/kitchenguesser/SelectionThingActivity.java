@@ -47,6 +47,7 @@ public class SelectionThingActivity extends ActionBarActivity {
         db = mDbHelper.getReadableDatabase();
 
         this.context = this;
+        final Intent thingFoundIntent = getIntent();
 
         searchField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,6 +84,7 @@ public class SelectionThingActivity extends ActionBarActivity {
 
                        // Toast.makeText(Settings.this, playerChanged, Toast.LENGTH_SHORT).show();
                         intent.putExtra("name",thingName);
+                        intent.putExtra("thingFoundName",thingFoundIntent.getStringExtra("thingFoundName"));
                         startActivity(intent);
                     }
                 });
