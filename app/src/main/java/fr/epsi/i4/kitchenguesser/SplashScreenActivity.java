@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,6 +39,8 @@ public class SplashScreenActivity extends Activity {
         });
 
         initializeDB();
+
+        startBlink();
     }
 
     private void initializeDB() {
@@ -68,5 +74,16 @@ public class SplashScreenActivity extends Activity {
         } else {
             Log.d("import", "On n'importe PAS la base !");
         }
+    }
+
+    private void startBlink(){
+        TextView myText = (TextView) findViewById(R.id.touch_to_begin_text_view);
+
+        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(1000); //You can manage the blinking time with this parameter
+        anim.setStartOffset(20);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        myText.startAnimation(anim);
     }
 }
