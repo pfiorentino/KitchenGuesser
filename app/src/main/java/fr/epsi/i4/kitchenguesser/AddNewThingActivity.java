@@ -18,6 +18,9 @@ import android.widget.RadioGroup;
 import android.widget.Space;
 import android.widget.TextView;
 
+import fr.epsi.i4.kitchenguesser.entities.Question;
+import fr.epsi.i4.kitchenguesser.entities.ThingQuestion;
+
 
 public class AddNewThingActivity extends ActionBarActivity {
 
@@ -89,13 +92,13 @@ public class AddNewThingActivity extends ActionBarActivity {
         validation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String answer;
+                int answer;
                 int checkedId = radioGroup.getCheckedRadioButtonId();
                 if(radioYes.getId() == checkedId){
-                    answer = "Oui";
+                    answer = 1;
                 }
                 else{
-                    answer = "Non";
+                    answer = 5;
                 }
 
                 if(nameThingGrab.equals("")){
@@ -137,12 +140,16 @@ public class AddNewThingActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addQuestion(String thingName, String question, String answer){
-        Log.d("feedback reponse",answer);
+    public void addQuestion(String thingName, String question, int answer){
+       /* Question questionAdded = new Question(0,"",question);
+        Question.addQuestion(db, questionAdded);
+
+        ThingQuestion thingQuestionAdded = new ThingQuestion(0);
+        Log.d("feedback reponse",answer);*/
     }
 
-    public void addThingAndQuestion(String thingName, String question, String answer){
+    public void addThingAndQuestion(String thingName, String question, int answer){
 
-        addQuestion(thingName,question,answer);
+       // addQuestion(thingName,question,answer);
     }
 }
