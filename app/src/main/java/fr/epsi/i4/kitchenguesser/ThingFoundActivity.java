@@ -34,19 +34,18 @@ public class ThingFoundActivity extends ActionBarActivity {
         Intent intent = getIntent();
         int thingId = intent.getIntExtra("thingId",-1);
 
-        System.out.println("Id de la thing : "+thingId);
-
         KitchenGuesserOpenHelper mDbHelper = new KitchenGuesserOpenHelper(this.getApplicationContext());
         db = mDbHelper.getReadableDatabase();
 
         final Thing thingFound = Thing.findById(thingId,db);
-        thing.setText(thingFound.getName());
+        thing.setText(Utils.ucfirst(thingFound.getName()));
 
         yesAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ThingFoundActivity.this, SuccessfulGameActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -56,12 +55,9 @@ public class ThingFoundActivity extends ActionBarActivity {
                 Intent intent = new Intent(ThingFoundActivity.this,SelectionThingActivity.class);
                 intent.putExtra("thingFoundName",thingFound.getName());
                 startActivity(intent);
+                finish();
             }
         });
-
-
-        Log.d("Coucou", thingFound.toString());
-
     }
 
     @Override
