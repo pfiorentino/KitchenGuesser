@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Objet"
+        android:text="Nom de votre objet :"
         android:id="@+id/textView6"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -51,10 +51,10 @@
         android:layout_weight="0.35" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Votre objet apparaît-il dans votre recherche ?"
+        android:text="Vous ne trouvez pas votre objet ?"
         android:id="@+id/textView7"
         android:gravity="center" />
 
@@ -68,16 +68,9 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Oui"
-            android:id="@+id/button"
+            android:text="Ajouter un nouvel objet"
+            android:id="@+id/buttonAddThing"
             android:layout_weight="1" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Non"
-            android:id="@+id/button2"
-            android:layout_weight="1" />
     </LinearLayout>
 </LinearLayout>

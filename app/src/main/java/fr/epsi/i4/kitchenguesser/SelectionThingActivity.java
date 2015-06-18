@@ -28,8 +28,7 @@ public class SelectionThingActivity extends ActionBarActivity {
 
     private EditText searchField;
     private ListView listThings;
-    private Button buttonYes;
-    private Button buttonNo;
+    private Button buttonAddThing;
     private SQLiteDatabase db;
     private Context context;
 
@@ -40,8 +39,7 @@ public class SelectionThingActivity extends ActionBarActivity {
 
         searchField = (EditText) findViewById(R.id.searchField);
         listThings = (ListView) findViewById(R.id.listThings);
-        buttonYes = (Button) findViewById(R.id.button);
-        buttonNo = (Button) findViewById(R.id.button2);
+        buttonAddThing = (Button) findViewById(R.id.buttonAddThing);
 
         KitchenGuesserOpenHelper mDbHelper = new KitchenGuesserOpenHelper(this.getApplicationContext());
         db = mDbHelper.getReadableDatabase();
@@ -69,22 +67,26 @@ public class SelectionThingActivity extends ActionBarActivity {
                             listNames.add(t.getName());
                         }
                     } else {
-                        listNames.add("\'Ajouter un nouvel objet...\'");
+                        listNames.add("Pas d'objet trouv\u00e9...");
                     }
                 }
                 ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, listNames);
                 listThings.setAdapter(listAdapter);
+/*
+                if(listNames.get(0).equals("Pas d'objet trouv\u00e9...") && listThings.getChildAt(0).isEnabled()){
+                    listThings.getChildAt(0).setEnabled(false);
+                }
+*/
                 listThings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                         Intent intent = new Intent(SelectionThingActivity.this,AddNewThingActivity.class);
                         String thingName = listNames.get(position);
-                        System.out.println(thingName);
-                      //  String playerChanged = c.getText().toString();
 
-                       // Toast.makeText(Settings.this, playerChanged, Toast.LENGTH_SHORT).show();
+
                         intent.putExtra("name",thingName);
                         intent.putExtra("thingFoundName",thingFoundIntent.getStringExtra("thingFoundName"));
+
                         startActivity(intent);
                     }
                 });
@@ -95,6 +97,16 @@ public class SelectionThingActivity extends ActionBarActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        buttonAddThing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SelectionThingActivity.this, AddNewThingActivity.class);
+                intent.putExtra("name","");
+                intent.putExtra("thingFoundName", thingFoundIntent.getStringExtra("thingFoundName"));
+                startActivity(intent);
             }
         });
     }

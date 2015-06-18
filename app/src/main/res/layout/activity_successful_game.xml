@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Ah ah ! Je suis trop fort !"
-        android:id="@+id/textView3"
+        android:id="@+id/finalText"
         android:layout_gravity="center_horizontal"
         android:gravity="center" />
 
