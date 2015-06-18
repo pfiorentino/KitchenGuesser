@@ -1,5 +1,6 @@
 package fr.epsi.i4.kitchenguesser.entities;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -34,6 +35,10 @@ public class ThingQuestion implements BaseColumns {
         return questionId;
     }
 
+    public int getThingId() {
+        return thingId;
+    }
+
     public int getValue() {
         return value;
     }
@@ -56,5 +61,13 @@ public class ThingQuestion implements BaseColumns {
         }
 
         return tqs;
+    }
+
+    public void addThingQuestion(SQLiteDatabase db, ThingQuestion thingQuestion){
+        ContentValues newValues = new ContentValues();
+        newValues.put(COLUMN_NAME_THING_ID,thingQuestion.getThingId());
+        newValues.put(COLUMN_NAME_QUESTION_ID,thingQuestion.getQuestionId());
+        newValues.put(COLUMN_NAME_VALUE,thingQuestion.getValue());
+        db.insert(TABLE_NAME, null, newValues);
     }
 }
