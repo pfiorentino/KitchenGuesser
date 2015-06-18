@@ -7,20 +7,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class SuccessfulGameActivity extends ActionBarActivity {
 
     private Button yesButton;
     private Button noButton;
+    private TextView finalText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_successful_game);
 
+        Intent intent = getIntent();
+        boolean ajoutInDB = intent.getBooleanExtra("ajoutInDB",false);
         yesButton = (Button) findViewById(R.id.yesButton);
         noButton = (Button) findViewById(R.id.noButton);
+        finalText = (TextView) findViewById(R.id.finalText);
+
+        if(ajoutInDB)
+            finalText.setText("Op\u00e9ration correctement effectu\u00e9e !");
 
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
