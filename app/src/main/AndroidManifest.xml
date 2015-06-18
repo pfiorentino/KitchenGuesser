@@ -6,12 +6,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".SplashScreenActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -19,23 +20,28 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ThingFoundActivity"
-            android:label="@string/title_activity_thing_found" >
+            android:label="@string/title_activity_thing_found"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".SuccessfulGameActivity"
-            android:label="@string/title_activity_successful_game" >
+            android:label="@string/title_activity_successful_game"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".SelectionThingActivity"
-            android:label="@string/title_activity_selection_thing" >
+            android:label="@string/title_activity_selection_thing"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AddNewThingActivity"
-            android:label="@string/title_activity_add_new_thing" >
+            android:label="@string/title_activity_add_new_thing"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
