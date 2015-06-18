@@ -33,8 +33,9 @@ public class SuccessfulGameActivity extends ActionBarActivity {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SuccessfulGameActivity.this, MainActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(SuccessfulGameActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
             }
         });
     }

@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import fr.epsi.i4.kitchenguesser.entities.Question;
 import fr.epsi.i4.kitchenguesser.entities.Thing;
@@ -23,9 +24,11 @@ import fr.epsi.i4.kitchenguesser.entities.UserAnswer;
 
 
 public class MainActivity extends ActionBarActivity {
-    private static final int MIN_SCORE_TO_KEEP = -6;
+    private static final int MIN_SCORE_TO_KEEP = -3;
     private static final int FIRST_QUESTION_TO_CLEAN = 3;
-    private static final int MAX_QUESTIONS = 20;
+    private static final int THRESHOLD_TO_CLEAN = 10;
+    private static final int PRECISION_THRESHOLD = 10;
+    private static final int MAX_QUESTIONS = 15;
 
     private SQLiteDatabase db;
 
@@ -121,6 +124,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void initializeGame() {
+        Log.d("init", "Init game");
+
         currentGame = new ArrayList<>();
         things      = new ArrayList<>();
         questions   = new HashMap<>();
@@ -133,20 +138,26 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private Question getRandomQuestion(){
-        int randIndex = (int) (1+Math.random()*(questions.size()-2));
-        return questions.get(randIndex);
+        Random generator = new Random();
+        Object[] values = questions.values().toArray();
+        return (Question) values[generator.nextInt(values.length)];
     }
 
     private Question getBestQuestion() {
         int maxScore = -1;
         Question bestQuestion = null;
 
-        for (Map.Entry<Integer, Question> entry : questions.entrySet()) {
-            int questionScore = getScore(entry.getKey());
+        // Dans 3% des cas on ressort une question au hasard
+        if (Math.random() > 0.97f){
+            bestQuestion = getRandomQuestion();
+        } else {
+            for (Map.Entry<Integer, Question> entry : questions.entrySet()) {
+                int questionScore = getScore(entry.getKey());
 
-            if (maxScore < questionScore || maxScore == questionScore && Math.random() > 0.5f){
-                maxScore = questionScore;
-                bestQuestion = entry.getValue();
+                if (maxScore < questionScore || maxScore == questionScore && Math.random() > 0.5f){
+                    maxScore = questionScore;
+                    bestQuestion = entry.getValue();
+                }
             }
         }
 
@@ -180,16 +191,22 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void cleanThingsList() {
-        ArrayList<Integer> keysToDelete = new ArrayList<>();
-
+        int highScore = things.get(0).getScore();
         for (int i = things.size()-1; i >= 0; i--) {
-            if (things.get(i).getScore() <= MIN_SCORE_TO_KEEP){
+            if (things.get(i).getScore() < highScore-THRESHOLD_TO_CLEAN){
                 things.remove(i);
             }
         }
+
+        /*for (int i = things.size()-1; i >= 0; i--) {
+            if (things.get(i).getScore() <= MIN_SCORE_TO_KEEP){
+                things.remove(i);
+            }
+        }*/
     }
 
     private void addAnswer(int answer) {
+        Log.d("Answer: ", currentQuestion.getQuestion()+" : "+answer);
         currentGame.add(new UserAnswer(currentQuestion.getId(), answer));
         updateThingsScore(currentQuestion.getId(), answer);
 
@@ -199,28 +216,34 @@ public class MainActivity extends ActionBarActivity {
 
         questions.remove(currentQuestion.getId());
 
-        float bestPrecision     = ((float) things.get(0).getScore()/(currentGame.size()*3))*100;
-        float secondPrecision   = ((float) things.get(1).getScore()/(currentGame.size()*3))*100;
+        if (questions.size() > 0 && currentGame.size() < MAX_QUESTIONS){
+            float bestPrecision     = ((float) things.get(0).getScore()/(currentGame.size()*3))*100;
+            float secondPrecision   = ((float) things.get(1).getScore()/(currentGame.size()*3))*100;
 
-        if ((bestPrecision-20 > secondPrecision && currentGame.size() > 5) || currentGame.size() > MAX_QUESTIONS){
-            List<Thing> bestThings = getThingsWithScore(things.get(0).getScore());
+            // Dans le cas où un objet se démarque
+            if ((bestPrecision-PRECISION_THRESHOLD > secondPrecision && currentGame.size() > 5)){
+                List<Thing> bestThings = getThingsWithScore(things.get(0).getScore());
 
-            if (bestThings.size() > 1){
-                things = (ArrayList) bestThings;
-                currentQuestion = getBestQuestion();
-            } else {
-                thingFound(things.get(0));
-                /*if (purposeAnswer(things.get(0), bestPrecision)){
-                    addMissingAnswers(things.get(0).getDBObject(em).getId());
-                    input = "q";
+                if (bestThings.size() > 1){
+                    things = (ArrayList) bestThings;
+                    currentQuestion = getBestQuestion();
+                    questionTextView.setText(currentQuestion.getQuestion());
                 } else {
-                    learn(things.get(0));
-                    input = "q";
-                }*/
+                    thingFound(things.get(0));
+                    /*if (purposeAnswer(things.get(0), bestPrecision)){
+                        addMissingAnswers(things.get(0).getDBObject(em).getId());
+                        input = "q";
+                    } else {
+                        learn(things.get(0));
+                        input = "q";
+                    }*/
+                }
+            } else {
+                currentQuestion = getBestQuestion();
+                questionTextView.setText(currentQuestion.getQuestion());
             }
         } else {
-            currentQuestion = getBestQuestion();
-            questionTextView.setText(currentQuestion.getQuestion());
+            thingFound(things.get(0));
         }
 
         Log.d("Things: ", things.toString());
