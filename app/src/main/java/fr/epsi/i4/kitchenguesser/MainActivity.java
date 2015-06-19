@@ -34,7 +34,6 @@ public class MainActivity extends ActionBarActivity {
 
     private HashMap<Integer, Question> questions;
     private ArrayList<Thing> things;
-    private ArrayList<UserAnswer> currentGame;
 
     private Question currentQuestion;
     private TextView questionTextView;
@@ -126,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
     private void initializeGame() {
         Log.d("init", "Init game");
 
-        currentGame = new ArrayList<>();
+        Game.getInstance().resetGame();
         things      = new ArrayList<>();
         questions   = new HashMap<>();
 
@@ -206,22 +205,22 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void addAnswer(int answer) {
-        Log.d("Answer: ", currentQuestion.getQuestion()+" : "+answer);
-        currentGame.add(new UserAnswer(currentQuestion.getId(), answer));
+        Log.d("Answer: ", currentQuestion.getQuestion() + " : " + answer);
+        Game.getInstance().addAnswer(new UserAnswer(currentQuestion.getId(), answer));
         updateThingsScore(currentQuestion.getId(), answer);
 
-        if (currentGame.size() >= FIRST_QUESTION_TO_CLEAN) {
+        if (Game.getInstance().getSize() >= FIRST_QUESTION_TO_CLEAN) {
             cleanThingsList();
         }
 
         questions.remove(currentQuestion.getId());
 
-        if (questions.size() > 0 && currentGame.size() < MAX_QUESTIONS){
-            float bestPrecision     = ((float) things.get(0).getScore()/(currentGame.size()*3))*100;
-            float secondPrecision   = ((float) things.get(1).getScore()/(currentGame.size()*3))*100;
+        if (questions.size() > 0 && Game.getInstance().getSize() < MAX_QUESTIONS){
+            float bestPrecision     = ((float) things.get(0).getScore()/(Game.getInstance().getSize()*3))*100;
+            float secondPrecision   = ((float) things.get(1).getScore()/(Game.getInstance().getSize()*3))*100;
 
             // Dans le cas où un objet se démarque
-            if ((bestPrecision-PRECISION_THRESHOLD > secondPrecision && currentGame.size() > 5)){
+            if ((bestPrecision-PRECISION_THRESHOLD > secondPrecision && Game.getInstance().getSize() > 5)){
                 List<Thing> bestThings = getThingsWithScore(things.get(0).getScore());
 
                 if (bestThings.size() > 1){

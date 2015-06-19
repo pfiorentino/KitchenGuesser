@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import fr.epsi.i4.kitchenguesser.entities.Thing;
+import fr.epsi.i4.kitchenguesser.entities.UserAnswer;
 
 
 public class ThingFoundActivity extends ActionBarActivity {
@@ -42,6 +44,8 @@ public class ThingFoundActivity extends ActionBarActivity {
         yesAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addMissingAnswers();
+
                 Intent intent = new Intent(ThingFoundActivity.this, PlayAgainActivity.class);
                 startActivity(intent);
                 finish();
@@ -85,5 +89,11 @@ public class ThingFoundActivity extends ActionBarActivity {
     public void onDestroy(){
         super.onDestroy();
         db.close();
+    }
+
+    private void addMissingAnswers() {
+        for (UserAnswer answer : Game.getInstance().getCurrentGame()){
+            Log.d("Uwer answer: ", answer.getQuestionId()+" - "+answer.getValue());
+        }
     }
 }
