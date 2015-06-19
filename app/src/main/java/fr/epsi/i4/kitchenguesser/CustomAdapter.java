@@ -1,7 +1,6 @@
 package fr.epsi.i4.kitchenguesser;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import java.util.List;

@@ -205,7 +205,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void addAnswer(int answer) {
-        Log.d("Answer: ", currentQuestion.getQuestion() + " : " + answer);
         Game.getInstance().addAnswer(new UserAnswer(currentQuestion.getId(), answer));
         updateThingsScore(currentQuestion.getId(), answer);
 
@@ -229,13 +228,6 @@ public class MainActivity extends ActionBarActivity {
                     questionTextView.setText(currentQuestion.getQuestion());
                 } else {
                     thingFound(things.get(0));
-                    /*if (purposeAnswer(things.get(0), bestPrecision)){
-                        addMissingAnswers(things.get(0).getDBObject(em).getId());
-                        input = "q";
-                    } else {
-                        learn(things.get(0));
-                        input = "q";
-                    }*/
                 }
             } else {
                 currentQuestion = getBestQuestion();
@@ -244,8 +236,6 @@ public class MainActivity extends ActionBarActivity {
         } else {
             thingFound(things.get(0));
         }
-
-        Log.d("Things: ", things.toString());
     }
 
 

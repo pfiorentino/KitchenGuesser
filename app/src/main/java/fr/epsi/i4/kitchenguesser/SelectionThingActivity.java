@@ -3,20 +3,17 @@ package fr.epsi.i4.kitchenguesser;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,11 +78,7 @@ public class SelectionThingActivity extends ActionBarActivity {
                 CustomAdapter listAdapter = new CustomAdapter(context, resource, listNames);
 
                 listThings.setAdapter(listAdapter);
-/*
-                if(listNames.get(0).equals("Pas d'objet trouv\u00e9...") && listThings.getChildAt(0).isEnabled()){
-                    listThings.getChildAt(0).setEnabled(false);
-                }
-*/
+
                 listThings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -114,6 +107,7 @@ public class SelectionThingActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SelectionThingActivity.this, AddNewThingActivity.class);
                 intent.putExtra("name","");
+                intent.putExtra("searchString", searchField.getText().toString());
                 intent.putExtra("thingFoundName", thingFoundIntent.getStringExtra("thingFoundName"));
                 startActivity(intent);
                 finish();

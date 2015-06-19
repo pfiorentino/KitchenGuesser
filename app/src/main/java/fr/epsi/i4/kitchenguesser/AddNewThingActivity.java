@@ -2,11 +2,8 @@ package fr.epsi.i4.kitchenguesser;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,8 +55,10 @@ public class AddNewThingActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         final String nameThingGrab = intent.getStringExtra("name");
+        final String searchString = intent.getStringExtra("searchString");
         final String thingFoundName = intent.getStringExtra("thingFoundName");
 
+        objectName.setText(searchString);
 
         if(nameThingGrab.equals("")){
             question.setText("Quelle question permet de différencier votre objet d'un(e) \"" + thingFoundName + "\" ?");
