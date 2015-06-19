@@ -74,6 +74,8 @@ public class AddNewThingActivity extends ActionBarActivity {
         validation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean isValid = false;
+
                 int answer;
                 int answerThingFound;
                 int checkedId = radioGroup.getCheckedRadioButtonId();
@@ -87,17 +89,27 @@ public class AddNewThingActivity extends ActionBarActivity {
                 }
 
                 if(nameThingGrab.equals("")){
-                    addThingAndQuestion(thingFoundName,objectName.getText().toString(),customerQuestion.getText().toString(),answer,answerThingFound);
+                    if (!objectName.getText().toString().equals("") && !customerQuestion.getText().toString().equals("")) {
+                        addThingAndQuestion(thingFoundName, objectName.getText().toString(), customerQuestion.getText().toString(), answer, answerThingFound);
+                        isValid = true;
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Veuillez saisir un nom d'objet et une question.", Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    addQuestion(thingFoundName,nameThingGrab,customerQuestion.getText().toString(),answer,answerThingFound);
+                    if (!customerQuestion.getText().toString().equals("")) {
+                        addQuestion(thingFoundName, nameThingGrab, customerQuestion.getText().toString(), answer, answerThingFound);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Veuillez saisir une question.", Toast.LENGTH_LONG).show();
+                    }
                 }
 
-                Intent intent = new Intent(AddNewThingActivity.this, PlayAgainActivity.class);
-                Toast toast = Toast.makeText(getApplicationContext(), "Base de donnée mise à jour :) ", Toast.LENGTH_LONG);
-                toast.show();
+                if (isValid) {
+                    Toast.makeText(getApplicationContext(), "Base de donnée mise à jour :) ", Toast.LENGTH_LONG).show();
 
-                startActivity(intent);
-                finish();
+                    Intent intent = new Intent(AddNewThingActivity.this, PlayAgainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }
