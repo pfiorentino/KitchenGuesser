@@ -3,9 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_thing_found">J\'ai trouvé !</string>
-    <string name="title_activity_successful_game">successfulGame</string>
-    <string name="touchforbegin">touchforbegin</string>
-    <string name="touchezpourcommencer">Touchez pour commencer !</string>
+    <string name="title_activity_play_again">Rejouer ?</string>
+    <string name="touchforbegin">Touchez pour commencer !</string>
     <string name="title">Kitchen Guesser</string>
     <string name="title_activity_selection_thing">SelectionThing</string>
     <string name="title_activity_add_new_thing">AddNewThing</string>
@@ -14,4 +13,5 @@
     <string name="correct">Est-ce correct ?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="play_again">Refaire une partie ?</string>
 </resources>

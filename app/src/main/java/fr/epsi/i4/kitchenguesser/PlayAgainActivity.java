@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class SuccessfulGameActivity extends ActionBarActivity {
+public class PlayAgainActivity extends ActionBarActivity {
 
     private Button yesButton;
     private Button noButton;
@@ -20,32 +20,6 @@ public class SuccessfulGameActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_successful_game);
-
-        Intent intent = getIntent();
-        boolean ajoutInDB = intent.getBooleanExtra("ajoutInDB",false);
-        yesButton = (Button) findViewById(R.id.yesButton);
-        noButton = (Button) findViewById(R.id.noButton);
-        finalText = (TextView) findViewById(R.id.finalText);
-
-        if(ajoutInDB)
-            finalText.setText("Op\u00e9ration correctement effectu\u00e9e !");
-
-        noButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                System.exit(0);
-            }
-        });
-
-        yesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Intent intent = new Intent(SuccessfulGameActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            }
-        });
     }
 
     @Override
@@ -68,5 +42,16 @@ public class SuccessfulGameActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void yesClick(View v) {
+        Intent intent = new Intent(PlayAgainActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void noClick(View v) {
+        finish();
+        System.exit(0);
     }
 }

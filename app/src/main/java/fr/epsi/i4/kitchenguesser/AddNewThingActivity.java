@@ -6,20 +6,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebChromeClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Space;
 import android.widget.TextView;
-
-import fr.epsi.i4.kitchenguesser.entities.Question;
-import fr.epsi.i4.kitchenguesser.entities.ThingQuestion;
+import android.widget.Toast;
 
 
 public class AddNewThingActivity extends ActionBarActivity {
@@ -108,9 +103,11 @@ public class AddNewThingActivity extends ActionBarActivity {
                     addQuestion(objectName.getText().toString(),customerQuestion.getText().toString(),answer);
                 }
 
-                Intent intent = new Intent(AddNewThingActivity.this, SuccessfulGameActivity.class);
-                intent.putExtra("ajoutInDB", true);
+                Intent intent = new Intent(AddNewThingActivity.this, PlayAgainActivity.class);
+                Toast toast = Toast.makeText(getApplicationContext(), "Base de donnée mise à jour :) ", Toast.LENGTH_LONG);
+                toast.show();
                 startActivity(intent);
+                finish();
             }
         });
 

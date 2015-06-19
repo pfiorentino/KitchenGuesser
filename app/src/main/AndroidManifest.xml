@@ -29,8 +29,9 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".SuccessfulGameActivity"
-            android:label="@string/title_activity_successful_game"
+            android:name=".PlayAgainActivity"
+            android:label="@string/title_activity_play_again"
+            android:noHistory="true"
             android:screenOrientation="portrait">
         </activity>
         <activity

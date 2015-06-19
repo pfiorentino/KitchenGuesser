@@ -57,25 +57,20 @@ public class Question implements BaseColumns {
         }
         return questions;
     }
-/*
+
     public static Question findByTitle(String title, SQLiteDatabase db) {
         Question question = null;
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + "WHERE "+COLUMN_NAME_QUESTION+" = "+title, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE "+COLUMN_NAME_QUESTION+" = \""+title+"\"", null);
         if (cursor.moveToFirst()) {
-            do {
-                question = new Question(
-                        cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_KEYWORD)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUESTION)));
-
-                question.add(question);
-            }
-            while (cursor.moveToNext());
+            question = new Question(
+                    cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_KEYWORD)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUESTION)));
         }
-        return questions;
+        return question;
     }
-*/
+
     public static void addQuestion(SQLiteDatabase db, Question question){
         ContentValues newValues = new ContentValues();
         newValues.put(COLUMN_NAME_KEYWORD,"user_defined");
