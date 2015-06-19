@@ -44,7 +44,7 @@ public class AddNewThingActivity extends ActionBarActivity {
 
         question = (TextView) findViewById(R.id.question);
         objectName = (EditText) findViewById(R.id.objectName);
-        titleFieldName = (TextView) findViewById(R.id.intituléChampNom);
+        titleFieldName = (TextView) findViewById(R.id.add_thing_title);
         spaceNameThing_Question = (android.support.v4.widget.Space) findViewById(R.id.spaceNameThing_Question);
         validation = (Button) findViewById(R.id.validation);
         customerQuestion = (EditText) findViewById(R.id.customerQuestion);
@@ -62,30 +62,12 @@ public class AddNewThingActivity extends ActionBarActivity {
 
 
         if(nameThingGrab.equals("")){
-            question.setText("Quelle question doit-on associer à \"\" pour le/la différencier de \""+thingFoundName+"\" ?");
-            objectName.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    question.setText("Quelle question doit-on associer à \""+s+"\" pour le/la différencier de \""+thingFoundName+"\" ?");
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-        }
-        else{
+            question.setText("Quelle question permet de différencier votre objet d'un(e) \"" + thingFoundName + "\" ?");
+        } else {
             objectName.setVisibility(View.GONE);
             titleFieldName.setVisibility(View.GONE);
             spaceNameThing_Question.setVisibility(View.GONE);
-            String questionString = "Quelle question doit-on associer à \""+nameThingGrab+"\" pour le/la différencier de \""+thingFoundName+"\" ?";
+            String questionString = "Quelle question permet de différencier un(e) \""+nameThingGrab+"\" d'un(e) \""+thingFoundName+"\" ?";
             question.setText(questionString);
         }
 
@@ -95,34 +77,29 @@ public class AddNewThingActivity extends ActionBarActivity {
                 int answer;
                 int answerThingFound;
                 int checkedId = radioGroup.getCheckedRadioButtonId();
+
                 if(radioYes.getId() == checkedId){
                     answer = 1;
                     answerThingFound = 5;
-                }
-                else{
+                } else {
                     answer = 5;
                     answerThingFound = 1;
                 }
 
                 if(nameThingGrab.equals("")){
                     addThingAndQuestion(thingFoundName,objectName.getText().toString(),customerQuestion.getText().toString(),answer,answerThingFound);
-                }
-                else{
-                    addQuestion(thingFoundName,objectName.getText().toString(),customerQuestion.getText().toString(),answer,answerThingFound);
+                } else {
+                    addQuestion(thingFoundName,nameThingGrab,customerQuestion.getText().toString(),answer,answerThingFound);
                 }
 
                 Intent intent = new Intent(AddNewThingActivity.this, PlayAgainActivity.class);
                 Toast toast = Toast.makeText(getApplicationContext(), "Base de donnée mise à jour :) ", Toast.LENGTH_LONG);
                 toast.show();
 
-                
                 startActivity(intent);
                 finish();
             }
         });
-
-
-
     }
 
     @Override
@@ -155,18 +132,11 @@ public class AddNewThingActivity extends ActionBarActivity {
         Thing thingGiven = Thing.findByName(thingName, db);
         Thing thingFound = Thing.findByName(thingFoundName, db);
 
-        Log.d("monlog","thingFoundName : "+thingFoundName+"\n thingName : "+thingName+"\n question : "+question+"\n answer : "+answer+"\n answerThingFound : "+answerThingFound+"\n");
-
         ThingQuestion thingQuestionForThingGiven = new ThingQuestion(0,thingGiven.getId(),questionObject.getId(),answer);
         ThingQuestion.addThingQuestion(thingQuestionForThingGiven, db);
 
         ThingQuestion thingQuestionForThingFound = new ThingQuestion(0,thingFound.getId(),questionObject.getId(),answerThingFound);
         ThingQuestion.addThingQuestion(thingQuestionForThingFound,db);
-
-        Log.d("feedback reponse", ""+answer);
-
-        thingGiven.toString();
-        thingFound.toString();
     }
 
     public void addThingAndQuestion(String thingFoundName, String thingName, String question, int answer, int answerThingFound){
