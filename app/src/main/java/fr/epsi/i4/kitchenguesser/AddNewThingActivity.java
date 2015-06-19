@@ -115,9 +115,7 @@ public class AddNewThingActivity extends ActionBarActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), "Base de donnée mise à jour :) ", Toast.LENGTH_LONG);
                 toast.show();
 
-
-
-
+                
                 startActivity(intent);
                 finish();
             }

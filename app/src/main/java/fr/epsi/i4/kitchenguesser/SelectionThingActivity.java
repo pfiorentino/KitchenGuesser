@@ -70,13 +70,8 @@ public class SelectionThingActivity extends ActionBarActivity {
                     }
                 }
 
-                int resource;
-                if(listNames.size() == 1 && listNames.get(0).equals("Pas d'objet trouv\u00e9...")){
-                    resource = android.R.layout.simple_list_item_1;
-                }
-                else{
-                    resource = android.R.layout.simple_list_item_1;
-                }
+                int resource = android.R.layout.simple_list_item_1;
+
 
                 CustomAdapter listAdapter = new CustomAdapter(context, resource, listNames);
 
