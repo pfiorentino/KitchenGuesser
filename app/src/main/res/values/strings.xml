@@ -6,12 +6,17 @@
     <string name="title_activity_play_again">Rejouer ?</string>
     <string name="touchforbegin">Touchez pour commencer !</string>
     <string name="title">Kitchen Guesser</string>
-    <string name="title_activity_selection_thing">SelectionThing</string>
-    <string name="title_activity_add_new_thing">AddNewThing</string>
+    <string name="title_activity_selection_thing">Recherche</string>
+    <string name="title_activity_add_new_thing">Ajout d\'un objet</string>
     <string name="action_debug">Debug</string>
     <string name="thing_found">Vous pensez à un(e) :</string>
     <string name="correct">Est-ce correct ?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="play_again">Refaire une partie ?</string>
+    <string name="thing_name">Nom de l\'objet</string>
+    <string name="question_prompt">Votre question fermée</string>
+    <string name="add_thing_to_base">Ajouter un objet à la base</string>
+    <string name="search_thing">Rechercher un objet</string>
+    <string name="search">Recherche</string>
 </resources>

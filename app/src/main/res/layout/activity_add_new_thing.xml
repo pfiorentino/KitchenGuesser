@@ -11,20 +11,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Nom complet de l&apos;objet à ajouter :"
-        android:id="@+id/intituléChampNom"
-        android:layout_gravity="center_horizontal" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/add_thing_to_base"
+        android:id="@+id/add_thing_title"
+        android:paddingBottom="20dp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
         android:id="@+id/objectName"
         android:layout_gravity="center_horizontal"
-        android:background="#ffffffff"
-        android:hint="Nom de l&apos;objet" />
+        android:hint="@string/thing_name" />
 
     <view
         android:layout_width="356dp"
@@ -38,23 +35,15 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/question"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center" />
-
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="android.support.v4.widget.Space"
-        android:id="@+id/view"
-        android:layout_weight="0.09" />
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/customerQuestion"
         android:layout_gravity="center_horizontal"
-        android:background="#ffffffff"
-        android:hint="Votre question fermée" />
+        android:hint="@string/question_prompt" />
 
     <view
         android:layout_width="359dp"
@@ -69,35 +58,40 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="La réponse à votre question :"
         android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center" />
+        android:gravity="center"
+        android:paddingTop="20dp" />
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/radioGroup">
+        android:id="@+id/radioGroup"
+        android:orientation="horizontal">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Oui"
-            android:id="@+id/radioYes" />
+            android:id="@+id/radioYes"
+            android:paddingLeft="0dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Non"
-            android:id="@+id/radioNo" />
+            android:id="@+id/radioNo"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp" />
     </RadioGroup>
 
-    <view
-        android:layout_width="282dp"
+    <View
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        class="android.support.v4.widget.Space"
-        android:id="@+id/view7"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.13" />
+        android:layout_weight="1" />
 
     <Button
         android:layout_width="wrap_content"
