@@ -32,6 +32,14 @@ public class ThingQuestion implements BaseColumns {
         this.value = value;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getQuestionId() {
         return questionId;
     }
@@ -64,18 +72,39 @@ public class ThingQuestion implements BaseColumns {
         return tqs;
     }
 
+    public static ThingQuestion find(int thingId, int questionId, SQLiteDatabase db) {
+        ThingQuestion tq = null;
+
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE thing_id = " + thingId + " AND question_id = "+questionId;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            tq = new ThingQuestion(
+                    cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_THING_ID)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUESTION_ID)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_VALUE)));
+        }
+
+        return tq;
+    }
+
     public static void addThingQuestion(ThingQuestion thingQuestion, SQLiteDatabase db){
-        /*
-        ContentValues newValues = new ContentValues();
-        newValues.put(COLUMN_NAME_THING_ID,thingQuestion.getThingId());
-        newValues.put(COLUMN_NAME_QUESTION_ID,thingQuestion.getQuestionId());
-        newValues.put(COLUMN_NAME_VALUE,thingQuestion.getValue());
-        db.insert(TABLE_NAME, null, newValues);
-        */
+        ThingQuestion tq = ThingQuestion.find(thingQuestion.getThingId(), thingQuestion.getQuestionId(), db);
+        if (tq == null){
+            int id = 0;
+            String query = "SELECT MAX(id) as max FROM " + TABLE_NAME;
+            Cursor cursor = db.rawQuery(query, null);
+            if (cursor.moveToFirst()) {
+                id = cursor.getInt(0);
+            }
+            thingQuestion.setId(id + 1);
 
-        String query = "INSERT INTO "+TABLE_NAME+" ("+COLUMN_NAME_THING_ID+","+COLUMN_NAME_QUESTION_ID+","+COLUMN_NAME_VALUE+") VALUES ("+thingQuestion.getThingId()+","+thingQuestion.getQuestionId()+","+thingQuestion.getValue()+")";
-        db.rawQuery(query, null);
-        Log.d("query thingquestion : ", query);
-
+            ContentValues newValues = new ContentValues();
+            newValues.put(COLUMN_NAME_ID,thingQuestion.getId());
+            newValues.put(COLUMN_NAME_THING_ID,thingQuestion.getThingId());
+            newValues.put(COLUMN_NAME_QUESTION_ID,thingQuestion.getQuestionId());
+            newValues.put(COLUMN_NAME_VALUE,thingQuestion.getValue());
+            db.insertOrThrow(TABLE_NAME, null, newValues);
+        }
     }
 }

@@ -37,6 +37,9 @@ public class Thing implements BaseColumns, Comparable<Thing> {
     public int getId() {
         return id;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return this.name;
@@ -167,13 +170,19 @@ public class Thing implements BaseColumns, Comparable<Thing> {
     }
 
     public static void addThing(Thing thing, SQLiteDatabase db){
-        /*
+        if (thing.getId() == 0){
+            int id = 0;
+            String query = "SELECT MAX(id) as max FROM " + TABLE_NAME;
+            Cursor cursor = db.rawQuery(query, null);
+            if (cursor.moveToFirst()) {
+                id = cursor.getInt(0);
+            }
+            thing.setId(id+1);
+        }
+
         ContentValues newValues = new ContentValues();
+        newValues.put(COLUMN_NAME_ID, thing.getId());
         newValues.put(COLUMN_NAME_NAME, thing.getName());
         db.insert(TABLE_NAME, null, newValues);
-        */
-        String query = "INSERT INTO "+TABLE_NAME+" ("+COLUMN_NAME_NAME+") VALUES (\""+thing.getName()+"\")";
-        Log.d("query thing : ",query );
-        db.rawQuery(query, null);
     }
 }

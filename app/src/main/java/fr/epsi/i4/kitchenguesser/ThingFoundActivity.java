@@ -12,12 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import fr.epsi.i4.kitchenguesser.entities.Thing;
+import fr.epsi.i4.kitchenguesser.entities.ThingQuestion;
 import fr.epsi.i4.kitchenguesser.entities.UserAnswer;
 
 
 public class ThingFoundActivity extends ActionBarActivity {
-
-
     private TextView thing;
     private Button yesAnswer;
     private Button noAnswer;
@@ -44,7 +43,7 @@ public class ThingFoundActivity extends ActionBarActivity {
         yesAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addMissingAnswers();
+                addMissingAnswers(thingFound);
 
                 Intent intent = new Intent(ThingFoundActivity.this, PlayAgainActivity.class);
                 startActivity(intent);
@@ -91,9 +90,12 @@ public class ThingFoundActivity extends ActionBarActivity {
         db.close();
     }
 
-    private void addMissingAnswers() {
+    private void addMissingAnswers(Thing thing) {
         for (UserAnswer answer : Game.getInstance().getCurrentGame()){
-            Log.d("Uwer answer: ", answer.getQuestionId()+" - "+answer.getValue());
+            Log.d("User answer: ", answer.getQuestionId()+" - "+answer.getValue());
+            ThingQuestion tq = new ThingQuestion(0, thing.getId(), answer.getQuestionId(), answer.getValue());
+            ThingQuestion.addThingQuestion(tq, db);
+            //select * from things_questions where thing_id = 3;
         }
     }
 }

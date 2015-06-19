@@ -32,6 +32,10 @@ public class Question implements BaseColumns {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getQuestion() {
         return this.question;
     }
@@ -76,16 +80,21 @@ public class Question implements BaseColumns {
         return question;
     }
 
-    public static void addQuestion(SQLiteDatabase db, Question question){
-        /*
+    public static void addQuestion(Question question, SQLiteDatabase db){
+        if (question.getId() == 0){
+            int id = 0;
+            String query = "SELECT MAX(id) as max FROM " + TABLE_NAME;
+            Cursor cursor = db.rawQuery(query, null);
+            if (cursor.moveToFirst()) {
+                id = cursor.getInt(0);
+            }
+            question.setId(id+1);
+        }
+
         ContentValues newValues = new ContentValues();
+        newValues.put(COLUMN_NAME_ID, question.getId());
         newValues.put(COLUMN_NAME_KEYWORD,"user_defined");
         newValues.put(COLUMN_NAME_QUESTION,question.getQuestion());
         db.insert(TABLE_NAME, null, newValues);
-        */
-
-        String query = "INSERT INTO "+TABLE_NAME+" ("+COLUMN_NAME_KEYWORD+","+COLUMN_NAME_QUESTION+") VALUES (\"user_defined\",\""+question.getQuestion()+"\")";
-        db.rawQuery(query, null);
-        Log.d("query question : ", query);
     }
 }

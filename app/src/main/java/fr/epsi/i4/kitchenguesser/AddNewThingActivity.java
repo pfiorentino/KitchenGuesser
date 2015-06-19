@@ -151,7 +151,7 @@ public class AddNewThingActivity extends ActionBarActivity {
 
     public void addQuestion(String thingFoundName, String thingName, String question, int answer, int answerThingFound){
         Question questionAdded = new Question(0,"",question);
-        Question.addQuestion(db, questionAdded);
+        Question.addQuestion(questionAdded, db);
         Question questionObject = Question.findByTitle(question, db);
 
         Thing thingGiven = Thing.findByName(thingName, db);
