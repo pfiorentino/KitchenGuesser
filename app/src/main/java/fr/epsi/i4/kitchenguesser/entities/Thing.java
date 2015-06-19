@@ -5,10 +5,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by paul on 13/06/2015.
@@ -65,7 +67,12 @@ public class Thing implements BaseColumns, Comparable<Thing> {
 
     @Override
     public String toString(){
-        return this.name+"("+this.score+")";
+        String message = "";
+        message += this.name+"("+this.score+")\n";
+        for (Map.Entry<Integer, Integer> entry : this.answers.entrySet()) {
+            message += "Key map : "+entry.getKey()+"\t - \t"+"Value map : "+entry.getValue()+"\n";
+        }
+        return message;
     }
 
     @Override
@@ -142,28 +149,31 @@ public class Thing implements BaseColumns, Comparable<Thing> {
 
     public static Thing findByName(String name, SQLiteDatabase db) {
         Thing thing = null;
-
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME+" WHERE "+COLUMN_NAME_NAME+" ="+name, null);
+        String query = "SELECT * FROM " + TABLE_NAME+" WHERE "+COLUMN_NAME_NAME+" = \""+name+"\"";
+        Cursor cursor = db.rawQuery(query, null);
+        Log.d("thing findByName : ",query);
         if (cursor.moveToFirst()) {
-            do {
-                thing = new Thing(
-                        cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_NAME)));
+            thing = new Thing(
+                    cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_NAME)));
 
-                List<ThingQuestion> thingAnswers = ThingQuestion.findByThingId(thing.getId(), db);
-                for (ThingQuestion answer : thingAnswers){
-                    thing.addAnswer(answer.getQuestionId(), answer.getValue());
-                }
+            List<ThingQuestion> thingAnswers = ThingQuestion.findByThingId(thing.getId(), db);
+            for (ThingQuestion answer : thingAnswers){
+                thing.addAnswer(answer.getQuestionId(), answer.getValue());
             }
-            while (cursor.moveToNext());
         }
         cursor.close();
         return thing;
     }
 
-    public void addThing(SQLiteDatabase db, Thing thing){
+    public static void addThing(Thing thing, SQLiteDatabase db){
+        /*
         ContentValues newValues = new ContentValues();
-        newValues.put(COLUMN_NAME_NAME,thing.getName());
+        newValues.put(COLUMN_NAME_NAME, thing.getName());
         db.insert(TABLE_NAME, null, newValues);
+        */
+        String query = "INSERT INTO "+TABLE_NAME+" ("+COLUMN_NAME_NAME+") VALUES (\""+thing.getName()+"\")";
+        Log.d("query thing : ",query );
+        db.rawQuery(query, null);
     }
 }

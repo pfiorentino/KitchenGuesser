@@ -36,6 +36,10 @@ public class Question implements BaseColumns {
         return this.question;
     }
 
+    public String getKeyword(){
+        return this.keyword;
+    }
+
     public String toString() {
         return "Question "+id+": "+question+" ("+keyword+")";
     }
@@ -60,8 +64,9 @@ public class Question implements BaseColumns {
 
     public static Question findByTitle(String title, SQLiteDatabase db) {
         Question question = null;
-
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE "+COLUMN_NAME_QUESTION+" = \""+title+"\"", null);
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE "+COLUMN_NAME_QUESTION+" = \""+title+"\"";
+        Log.d("question findByTitle : ",query);
+        Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             question = new Question(
                     cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),
@@ -72,9 +77,15 @@ public class Question implements BaseColumns {
     }
 
     public static void addQuestion(SQLiteDatabase db, Question question){
+        /*
         ContentValues newValues = new ContentValues();
         newValues.put(COLUMN_NAME_KEYWORD,"user_defined");
         newValues.put(COLUMN_NAME_QUESTION,question.getQuestion());
-        db.insert(TABLE_NAME,null,newValues);
+        db.insert(TABLE_NAME, null, newValues);
+        */
+
+        String query = "INSERT INTO "+TABLE_NAME+" ("+COLUMN_NAME_KEYWORD+","+COLUMN_NAME_QUESTION+") VALUES (\"user_defined\",\""+question.getQuestion()+"\")";
+        db.rawQuery(query, null);
+        Log.d("query question : ", query);
     }
 }

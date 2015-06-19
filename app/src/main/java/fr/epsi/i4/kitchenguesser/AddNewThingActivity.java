@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import fr.epsi.i4.kitchenguesser.entities.Question;
+import fr.epsi.i4.kitchenguesser.entities.Thing;
+import fr.epsi.i4.kitchenguesser.entities.ThingQuestion;
 
 
 public class AddNewThingActivity extends ActionBarActivity {
@@ -88,24 +93,31 @@ public class AddNewThingActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 int answer;
+                int answerThingFound;
                 int checkedId = radioGroup.getCheckedRadioButtonId();
                 if(radioYes.getId() == checkedId){
                     answer = 1;
+                    answerThingFound = 5;
                 }
                 else{
                     answer = 5;
+                    answerThingFound = 1;
                 }
 
                 if(nameThingGrab.equals("")){
-                    addThingAndQuestion(objectName.getText().toString(),customerQuestion.getText().toString(),answer);
+                    addThingAndQuestion(thingFoundName,objectName.getText().toString(),customerQuestion.getText().toString(),answer,answerThingFound);
                 }
                 else{
-                    addQuestion(objectName.getText().toString(),customerQuestion.getText().toString(),answer);
+                    addQuestion(thingFoundName,objectName.getText().toString(),customerQuestion.getText().toString(),answer,answerThingFound);
                 }
 
                 Intent intent = new Intent(AddNewThingActivity.this, PlayAgainActivity.class);
                 Toast toast = Toast.makeText(getApplicationContext(), "Base de donnée mise à jour :) ", Toast.LENGTH_LONG);
                 toast.show();
+
+
+
+
                 startActivity(intent);
                 finish();
             }
@@ -137,16 +149,31 @@ public class AddNewThingActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addQuestion(String thingName, String question, int answer){
-       /* Question questionAdded = new Question(0,"",question);
+    public void addQuestion(String thingFoundName, String thingName, String question, int answer, int answerThingFound){
+        Question questionAdded = new Question(0,"",question);
         Question.addQuestion(db, questionAdded);
+        Question questionObject = Question.findByTitle(question, db);
 
-        ThingQuestion thingQuestionAdded = new ThingQuestion(0);
-        Log.d("feedback reponse",answer);*/
+        Thing thingGiven = Thing.findByName(thingName, db);
+        Thing thingFound = Thing.findByName(thingFoundName, db);
+
+        Log.d("monlog","thingFoundName : "+thingFoundName+"\n thingName : "+thingName+"\n question : "+question+"\n answer : "+answer+"\n answerThingFound : "+answerThingFound+"\n");
+
+        ThingQuestion thingQuestionForThingGiven = new ThingQuestion(0,thingGiven.getId(),questionObject.getId(),answer);
+        ThingQuestion.addThingQuestion(thingQuestionForThingGiven, db);
+
+        ThingQuestion thingQuestionForThingFound = new ThingQuestion(0,thingFound.getId(),questionObject.getId(),answerThingFound);
+        ThingQuestion.addThingQuestion(thingQuestionForThingFound,db);
+
+        Log.d("feedback reponse", ""+answer);
+
+        thingGiven.toString();
+        thingFound.toString();
     }
 
-    public void addThingAndQuestion(String thingName, String question, int answer){
-
-       // addQuestion(thingName,question,answer);
+    public void addThingAndQuestion(String thingFoundName, String thingName, String question, int answer, int answerThingFound){
+        Thing thing = new Thing(0,thingName);
+        Thing.addThing(thing,db);
+        addQuestion(thingFoundName, thingName, question, answer, answerThingFound);
     }
 }
