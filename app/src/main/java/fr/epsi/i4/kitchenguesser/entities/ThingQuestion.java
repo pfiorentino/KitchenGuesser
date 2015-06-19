@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,11 +64,18 @@ public class ThingQuestion implements BaseColumns {
         return tqs;
     }
 
-    public void addThingQuestion(SQLiteDatabase db, ThingQuestion thingQuestion){
+    public static void addThingQuestion(ThingQuestion thingQuestion, SQLiteDatabase db){
+        /*
         ContentValues newValues = new ContentValues();
         newValues.put(COLUMN_NAME_THING_ID,thingQuestion.getThingId());
         newValues.put(COLUMN_NAME_QUESTION_ID,thingQuestion.getQuestionId());
         newValues.put(COLUMN_NAME_VALUE,thingQuestion.getValue());
         db.insert(TABLE_NAME, null, newValues);
+        */
+
+        String query = "INSERT INTO "+TABLE_NAME+" ("+COLUMN_NAME_THING_ID+","+COLUMN_NAME_QUESTION_ID+","+COLUMN_NAME_VALUE+") VALUES ("+thingQuestion.getThingId()+","+thingQuestion.getQuestionId()+","+thingQuestion.getValue()+")";
+        db.rawQuery(query, null);
+        Log.d("query thingquestion : ", query);
+
     }
 }
