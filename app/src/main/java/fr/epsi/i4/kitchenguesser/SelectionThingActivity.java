@@ -55,7 +55,6 @@ public class SelectionThingActivity extends ActionBarActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 List<Thing> list;
                 final ArrayList<String> listNames = new ArrayList<String>();
                 //System.out.println("Liste de things vide ? : "+ list.isEmpty());
@@ -70,7 +69,17 @@ public class SelectionThingActivity extends ActionBarActivity {
                         listNames.add("Pas d'objet trouv\u00e9...");
                     }
                 }
-                ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, listNames);
+
+                int resource;
+                if(listNames.size() == 1 && listNames.get(0).equals("Pas d'objet trouv\u00e9...")){
+                    resource = android.R.layout.simple_list_item_1;
+                }
+                else{
+                    resource = android.R.layout.simple_list_item_1;
+                }
+
+                CustomAdapter listAdapter = new CustomAdapter(context, resource, listNames);
+
                 listThings.setAdapter(listAdapter);
 /*
                 if(listNames.get(0).equals("Pas d'objet trouv\u00e9...") && listThings.getChildAt(0).isEnabled()){
@@ -82,7 +91,6 @@ public class SelectionThingActivity extends ActionBarActivity {
                     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                         Intent intent = new Intent(SelectionThingActivity.this,AddNewThingActivity.class);
                         String thingName = listNames.get(position);
-
 
                         intent.putExtra("name",thingName);
                         intent.putExtra("thingFoundName",thingFoundIntent.getStringExtra("thingFoundName"));
