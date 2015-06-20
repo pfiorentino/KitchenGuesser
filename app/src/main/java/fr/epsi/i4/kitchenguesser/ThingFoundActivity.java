@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import fr.epsi.i4.kitchenguesser.entities.Thing;
@@ -17,6 +18,7 @@ import fr.epsi.i4.kitchenguesser.entities.UserAnswer;
 
 public class ThingFoundActivity extends ActionBarActivity {
     private TextView thing;
+    private ImageView thingPicture;
     private Button yesAnswer;
     private Button noAnswer;
     private SQLiteDatabase db;
@@ -27,11 +29,13 @@ public class ThingFoundActivity extends ActionBarActivity {
         setContentView(R.layout.activity_thing_found);
 
         thing = (TextView) findViewById(R.id.thing_found);
+        thingPicture = (ImageView) findViewById(R.id.thing_picture);
         yesAnswer = (Button) findViewById(R.id.YesAnswer);
         noAnswer = (Button) findViewById(R.id.NoAnswer);
 
         Intent intent = getIntent();
         int thingId = intent.getIntExtra("thingId",-1);
+        thingPicture.setImageResource(getResources().getIdentifier("thing_"+thingId, "drawable", getPackageName()));
 
         KitchenGuesserOpenHelper mDbHelper = new KitchenGuesserOpenHelper(this.getApplicationContext());
         db = mDbHelper.getReadableDatabase();

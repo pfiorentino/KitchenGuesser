@@ -69,7 +69,6 @@ public class Question implements BaseColumns {
     public static Question findByTitle(String title, SQLiteDatabase db) {
         Question question = null;
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE "+COLUMN_NAME_QUESTION+" = \""+title+"\"";
-        Log.d("question findByTitle : ",query);
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             question = new Question(

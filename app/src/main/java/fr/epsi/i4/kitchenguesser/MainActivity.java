@@ -214,7 +214,7 @@ public class MainActivity extends ActionBarActivity {
 
         questions.remove(currentQuestion.getId());
 
-        if (questions.size() > 0 && Game.getInstance().getSize() < MAX_QUESTIONS){
+        if (questions.size() > 0 && things.size() > 1 && Game.getInstance().getSize() < MAX_QUESTIONS){
             float bestPrecision     = ((float) things.get(0).getScore()/(Game.getInstance().getSize()*3))*100;
             float secondPrecision   = ((float) things.get(1).getScore()/(Game.getInstance().getSize()*3))*100;
 

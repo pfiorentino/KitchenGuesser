@@ -59,7 +59,6 @@ public class SelectionThingActivity extends ActionBarActivity {
                     list = Thing.findByString(db, s.toString());
                     if (!list.isEmpty()) {
                         for (Thing t : list) {
-                            System.out.println(t.getName());
                             listNames.add(t.getName());
                         }
                     } else {

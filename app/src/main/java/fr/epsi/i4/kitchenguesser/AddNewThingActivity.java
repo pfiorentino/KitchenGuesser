@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,6 @@ public class AddNewThingActivity extends ActionBarActivity {
     private TextView question;
     private EditText objectName;
     private TextView titleFieldName;
-    private android.support.v4.widget.Space spaceNameThing_Question;
     private EditText customerQuestion;
     private Button validation;
 
@@ -42,7 +42,6 @@ public class AddNewThingActivity extends ActionBarActivity {
         question = (TextView) findViewById(R.id.question);
         objectName = (EditText) findViewById(R.id.objectName);
         titleFieldName = (TextView) findViewById(R.id.add_thing_title);
-        spaceNameThing_Question = (android.support.v4.widget.Space) findViewById(R.id.spaceNameThing_Question);
         validation = (Button) findViewById(R.id.validation);
         customerQuestion = (EditText) findViewById(R.id.customerQuestion);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
@@ -61,11 +60,13 @@ public class AddNewThingActivity extends ActionBarActivity {
         objectName.setText(searchString);
 
         if(nameThingGrab.equals("")){
+            findViewById(R.id.thing_name_text_view).setVisibility(View.GONE);
             question.setText("Quelle question permet de différencier votre objet d'un(e) \"" + thingFoundName + "\" ?");
         } else {
+            titleFieldName.setText("Ajouter une question à la base");
+            ((TextView) findViewById(R.id.thing_to_add)).setText("Objet sélectionné");
             objectName.setVisibility(View.GONE);
-            titleFieldName.setVisibility(View.GONE);
-            spaceNameThing_Question.setVisibility(View.GONE);
+            ((TextView) findViewById(R.id.thing_name_text_view)).setText(nameThingGrab);
             String questionString = "Quelle question permet de différencier un(e) \""+nameThingGrab+"\" d'un(e) \""+thingFoundName+"\" ?";
             question.setText(questionString);
         }
@@ -97,6 +98,7 @@ public class AddNewThingActivity extends ActionBarActivity {
                 } else {
                     if (!customerQuestion.getText().toString().equals("")) {
                         addQuestion(thingFoundName, nameThingGrab, customerQuestion.getText().toString(), answer, answerThingFound);
+                        isValid = true;
                     } else {
                         Toast.makeText(getApplicationContext(), "Veuillez saisir une question.", Toast.LENGTH_LONG).show();
                     }
@@ -108,6 +110,8 @@ public class AddNewThingActivity extends ActionBarActivity {
                     Intent intent = new Intent(AddNewThingActivity.this, PlayAgainActivity.class);
                     startActivity(intent);
                     finish();
+                } else {
+                    Log.d("error", "Hhhmmmm flag isn't set to true...");
                 }
             }
         });

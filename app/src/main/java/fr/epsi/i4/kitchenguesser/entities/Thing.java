@@ -154,7 +154,6 @@ public class Thing implements BaseColumns, Comparable<Thing> {
         Thing thing = null;
         String query = "SELECT * FROM " + TABLE_NAME+" WHERE "+COLUMN_NAME_NAME+" = \""+name+"\"";
         Cursor cursor = db.rawQuery(query, null);
-        Log.d("thing findByName : ",query);
         if (cursor.moveToFirst()) {
             thing = new Thing(
                     cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),

@@ -19,4 +19,5 @@
     <string name="add_thing_to_base">Ajouter un objet à la base</string>
     <string name="search_thing">Rechercher un objet</string>
     <string name="search">Recherche</string>
+    <string name="thing_to_add">Objet à ajouter</string>
 </resources>
