@@ -25,17 +25,6 @@ import fr.epsi.i4.kitchenguesser.entities.UserAnswer;
 
 
 public class MainActivity extends ActionBarActivity {
-    private static final int MIN_SCORE_TO_KEEP = -3;
-    private static final int FIRST_QUESTION_TO_CLEAN = 3;
-    private static final int THRESHOLD_TO_CLEAN = 10;
-    private static final int PRECISION_THRESHOLD = 10;
-    private static final int MAX_QUESTIONS = 15;
-
-    private SQLiteDatabase db;
-
-    private HashMap<Integer, Question> questions;
-    private ArrayList<Thing> things;
-
     private Question currentQuestion;
     private TextView questionTextView;
 
@@ -44,10 +33,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        openDB();
-        initializeGame();
-
-        currentQuestion = getRandomQuestion();
+        Game.getInstance().init(this.getApplicationContext());
+        currentQuestion = Game.getInstance().getRandomQuestion();
 
         questionTextView = (TextView) findViewById(R.id.questionTextView);
         questionTextView.setText(currentQuestion.getQuestion());
@@ -115,141 +102,17 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        db.close();
-    }
-
-    private void openDB() {
-        KitchenGuesserOpenHelper mDbHelper = new KitchenGuesserOpenHelper(this.getApplicationContext());
-        db = mDbHelper.getReadableDatabase();
-    }
-
-    private void initializeGame() {
-        Log.d("init", "Init game");
-
-        Game.getInstance().resetGame();
-        things      = new ArrayList<>();
-        questions   = new HashMap<>();
-
-        things = (ArrayList) Thing.findAll(db);
-
-        for (Question question : Question.findAll(db)){
-            questions.put(question.getId(), question);
-        }
-    }
-
-    private Question getRandomQuestion(){
-        Random generator = new Random();
-        Object[] values = questions.values().toArray();
-        return (Question) values[generator.nextInt(values.length)];
-    }
-
-    private Question getBestQuestion() {
-        int maxScore = -1;
-        Question bestQuestion = null;
-
-        // Dans 3% des cas on ressort une question au hasard
-        if (Math.random() > 0.97f){
-            bestQuestion = getRandomQuestion();
-        } else {
-            for (Map.Entry<Integer, Question> entry : questions.entrySet()) {
-                int questionScore = getScore(entry.getKey());
-
-                if (maxScore < questionScore || maxScore == questionScore && Math.random() > 0.5f){
-                    maxScore = questionScore;
-                    bestQuestion = entry.getValue();
-                }
-            }
-        }
-
-        return bestQuestion;
-    }
-
-    private int getScore(int questionId){
-        int score = 1;
-
-        int[] answers = {1,1,1,1,1,1};
-
-        for (Thing thing : things) {
-            if (thing.getScore() >= 0 && thing.getAnswer(questionId) > 0){
-                answers[thing.getAnswer(questionId)]++;
-            }
-        }
-
-        for (int answer : answers) {
-            score *= answer;
-        }
-
-        return score;
-    }
-
-    private void updateThingsScore(int questionId, int answer) {
-        for (Thing thing : things) {
-            thing.updateScore(questionId, answer);
-        }
-
-        Collections.sort(things);
-    }
-
-    private void cleanThingsList() {
-        int highScore = things.get(0).getScore();
-        for (int i = things.size()-1; i >= 0; i--) {
-            if (things.get(i).getScore() < highScore-THRESHOLD_TO_CLEAN){
-                things.remove(i);
-            }
-        }
-
-        /*for (int i = things.size()-1; i >= 0; i--) {
-            if (things.get(i).getScore() <= MIN_SCORE_TO_KEEP){
-                things.remove(i);
-            }
-        }*/
     }
 
     private void addAnswer(int answer) {
-        Game.getInstance().addAnswer(new UserAnswer(currentQuestion.getId(), answer));
-        updateThingsScore(currentQuestion.getId(), answer);
+        Thing thingFound = Game.getInstance().addAnswer(currentQuestion, answer);
 
-        if (Game.getInstance().getSize() >= FIRST_QUESTION_TO_CLEAN) {
-            cleanThingsList();
-        }
-
-        questions.remove(currentQuestion.getId());
-
-        if (questions.size() > 0 && things.size() > 1 && Game.getInstance().getSize() < MAX_QUESTIONS){
-            float bestPrecision     = ((float) things.get(0).getScore()/(Game.getInstance().getSize()*3))*100;
-            float secondPrecision   = ((float) things.get(1).getScore()/(Game.getInstance().getSize()*3))*100;
-
-            // Dans le cas où un objet se démarque
-            if ((bestPrecision-PRECISION_THRESHOLD > secondPrecision && Game.getInstance().getSize() > 5)){
-                List<Thing> bestThings = getThingsWithScore(things.get(0).getScore());
-
-                if (bestThings.size() > 1){
-                    things = (ArrayList) bestThings;
-                    currentQuestion = getBestQuestion();
-                    questionTextView.setText(currentQuestion.getQuestion());
-                } else {
-                    thingFound(things.get(0));
-                }
-            } else {
-                currentQuestion = getBestQuestion();
-                questionTextView.setText(currentQuestion.getQuestion());
-            }
+        if (thingFound == null) {
+            currentQuestion = Game.getInstance().getBestQuestion();
+            questionTextView.setText(currentQuestion.getQuestion());
         } else {
-            thingFound(things.get(0));
+            thingFound(thingFound);
         }
-    }
-
-
-    private List<Thing> getThingsWithScore(int score) {
-        List<Thing> output = new ArrayList();
-
-        for (Thing thing : things) {
-            if (thing.getScore() == score){
-                output.add(thing);
-            }
-        }
-
-        return output;
     }
 
     private void thingFound(Thing thing){
@@ -260,8 +123,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private boolean rollBack() {
-        //Log.d("");
-        return true;
+        Log.d("RollBack", "On roll back (enfin on essaye)");
+
+        Question lastQuestion = Game.getInstance().rollBack();
+
+        return lastQuestion != null;
     }
 
     @Override

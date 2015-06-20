@@ -3,6 +3,7 @@ package fr.epsi.i4.kitchenguesser;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -21,6 +22,7 @@ import java.nio.channels.ReadableByteChannel;
 
 public class SplashScreenActivity extends Activity {
     private RelativeLayout accueil = null;
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
