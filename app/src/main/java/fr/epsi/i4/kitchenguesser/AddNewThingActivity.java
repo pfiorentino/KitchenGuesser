@@ -61,13 +61,13 @@ public class AddNewThingActivity extends ActionBarActivity {
 
         if(nameThingGrab.equals("")){
             findViewById(R.id.thing_name_text_view).setVisibility(View.GONE);
-            question.setText("Quelle question permet de différencier votre objet d'un(e) \"" + thingFoundName + "\" ?");
+            question.setText("Qu'est-ce qui différencie votre objet d'un(e) \"" + thingFoundName + "\" ?");
         } else {
             titleFieldName.setText("Ajouter une question à la base");
             ((TextView) findViewById(R.id.thing_to_add)).setText("Objet sélectionné");
             objectName.setVisibility(View.GONE);
             ((TextView) findViewById(R.id.thing_name_text_view)).setText(nameThingGrab);
-            String questionString = "Quelle question permet de différencier un(e) \""+nameThingGrab+"\" d'un(e) \""+thingFoundName+"\" ?";
+            String questionString = "Qu'est-ce qui différencie un(e) \""+nameThingGrab+"\" d'un(e) \""+thingFoundName+"\" ?";
             question.setText(questionString);
         }
 
