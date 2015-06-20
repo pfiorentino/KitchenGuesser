@@ -110,8 +110,28 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    public void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
+        if(mp != null){
+            mp.stop();
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mp != null){
+            mp.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mp != null){
+            mp.start();
+        }
     }
 
     private void addAnswer(int answer) {

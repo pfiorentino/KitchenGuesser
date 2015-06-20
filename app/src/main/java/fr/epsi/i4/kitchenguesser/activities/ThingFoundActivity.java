@@ -39,13 +39,6 @@ public class ThingFoundActivity extends ActionBarActivity {
 
         if(mp != null){
             mp.setVolume(100, 100);
-
-            Handler h = new Handler();
-            h.postDelayed(new Runnable() {
-                public void run() {
-                    mp.start();
-                }
-            }, 1000);
             mp.start();
         }
 
@@ -108,14 +101,34 @@ public class ThingFoundActivity extends ActionBarActivity {
     }
 
     @Override
-    public void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
+        if(mp != null){
+            mp.stop();
+        }
         db.close();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mp != null){
+            mp.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mp != null){
+            mp.start();
+        }
     }
 
     private void addMissingAnswers(Thing thing) {
         for (GameStep answer : Game.getInstance().getCurrentGame()){
-            ThingQuestion tq = new ThingQuestion(0, thing.getId(), answer.getQuestionId(), answer.getValue());
+            ThingQuestion tq = new ThingQuestion(0, thing.getId(), answer.getQuestionId(), answer.getAnswer());
             ThingQuestion.addThingQuestion(tq, db);
             //select * from things_questions where thing_id = 3;
         }

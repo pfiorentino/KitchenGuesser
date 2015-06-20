@@ -56,12 +56,31 @@ public class SplashScreenActivity extends Activity {
         if(mp != null) {
             mp.setLooping(true); // Set looping
             mp.setVolume(100, 100);
-            Handler h = new Handler();
-            h.postDelayed(new Runnable() {
-                public void run() {
-                    mp.start();
-                }
-            }, 7000);
+            mp.start();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mp != null){
+            mp.stop();
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mp != null){
+            mp.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mp != null){
             mp.start();
         }
     }
@@ -109,4 +128,6 @@ public class SplashScreenActivity extends Activity {
         anim.setRepeatCount(Animation.INFINITE);
         myText.startAnimation(anim);
     }
+
+
 }
