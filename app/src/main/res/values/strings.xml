@@ -20,4 +20,5 @@
     <string name="search_thing">Rechercher un objet</string>
     <string name="search">Recherche</string>
     <string name="thing_to_add">Objet à ajouter</string>
+    <string name="thing_image_access">thing image</string>
 </resources>
