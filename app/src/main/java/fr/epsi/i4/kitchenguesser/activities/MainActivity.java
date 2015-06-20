@@ -3,6 +3,7 @@ package fr.epsi.i4.kitchenguesser.activities;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -36,6 +37,12 @@ public class MainActivity extends ActionBarActivity {
         if(mp != null){
             mp.setLooping(true); // Set looping
             mp.setVolume(100, 100);
+            Handler h = new Handler();
+            h.postDelayed(new Runnable() {
+                public void run() {
+                    mp.start();
+                }
+            }, 1000);
             mp.start();
         }
 
