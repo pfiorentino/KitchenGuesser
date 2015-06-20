@@ -15,15 +15,14 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/search_thing"
         android:id="@+id/textView6"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="5dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:background="@drawable/picture_background"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:layout_marginBottom="10dp">
+        android:layout_weight="1">
 
         <LinearLayout
             android:orientation="vertical"
@@ -31,7 +30,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:background="@android:color/white"
-            android:padding="10dp">
+            android:padding="5dp">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +41,7 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:id="@+id/listThings"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1" />
@@ -54,18 +53,17 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/secondary_text_light_nodisable"
-        android:text="Vous ne trouvez pas votre objet ?"
+        android:text="@string/cant_find_your_thing"
         android:id="@+id/textView7"
         android:gravity="center"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:text="Ajouter un nouvel objet"
+        android:text="@string/add_thing"
         android:id="@+id/buttonAddThing"
         android:background="@drawable/custom_button"
-        android:textColor="@android:color/white"
-        android:layout_margin="2dp" />
+        android:textColor="@android:color/white" />
 </LinearLayout>

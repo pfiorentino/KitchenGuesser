@@ -41,7 +41,8 @@
             android:name=".SelectionThingActivity"
             android:label="@string/title_activity_selection_thing"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".AddNewThingActivity"
