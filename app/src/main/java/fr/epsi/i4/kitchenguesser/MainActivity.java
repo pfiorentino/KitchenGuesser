@@ -205,7 +205,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void addAnswer(int answer) {
-        Log.d("Answer: ", currentQuestion.getQuestion() + " : " + answer);
         Game.getInstance().addAnswer(new UserAnswer(currentQuestion.getId(), answer));
         updateThingsScore(currentQuestion.getId(), answer);
 
@@ -215,7 +214,7 @@ public class MainActivity extends ActionBarActivity {
 
         questions.remove(currentQuestion.getId());
 
-        if (questions.size() > 0 && Game.getInstance().getSize() < MAX_QUESTIONS){
+        if (questions.size() > 0 && things.size() > 1 && Game.getInstance().getSize() < MAX_QUESTIONS){
             float bestPrecision     = ((float) things.get(0).getScore()/(Game.getInstance().getSize()*3))*100;
             float secondPrecision   = ((float) things.get(1).getScore()/(Game.getInstance().getSize()*3))*100;
 
@@ -229,13 +228,6 @@ public class MainActivity extends ActionBarActivity {
                     questionTextView.setText(currentQuestion.getQuestion());
                 } else {
                     thingFound(things.get(0));
-                    /*if (purposeAnswer(things.get(0), bestPrecision)){
-                        addMissingAnswers(things.get(0).getDBObject(em).getId());
-                        input = "q";
-                    } else {
-                        learn(things.get(0));
-                        input = "q";
-                    }*/
                 }
             } else {
                 currentQuestion = getBestQuestion();
@@ -244,8 +236,6 @@ public class MainActivity extends ActionBarActivity {
         } else {
             thingFound(things.get(0));
         }
-
-        Log.d("Things: ", things.toString());
     }
 
 
@@ -266,5 +256,10 @@ public class MainActivity extends ActionBarActivity {
         intent.putExtra("thingId",thing.getId());
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

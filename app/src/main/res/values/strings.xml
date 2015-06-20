@@ -19,4 +19,11 @@
     <string name="add_thing_to_base">Ajouter un objet à la base</string>
     <string name="search_thing">Rechercher un objet</string>
     <string name="search">Recherche</string>
+    <string name="thing_to_add">Objet à ajouter</string>
+    <string name="thing_image_access">thing image</string>
+    <string name="add_question_question">Qu\'est-ce qui différencie votre objet d\'un(e) \"couteau de cuisine\"</string>
+    <string name="submit">Valider</string>
+    <string name="answer_to_new_question">La réponse à votre question :</string>
+    <string name="add_thing">Ajouter un nouvel objet</string>
+    <string name="cant_find_your_thing">Vous ne trouvez pas votre objet ?</string>
 </resources>
