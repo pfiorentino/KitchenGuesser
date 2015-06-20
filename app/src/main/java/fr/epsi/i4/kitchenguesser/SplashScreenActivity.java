@@ -3,6 +3,7 @@ package fr.epsi.i4.kitchenguesser;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,7 +23,7 @@ import java.nio.channels.ReadableByteChannel;
 
 public class SplashScreenActivity extends Activity {
     private RelativeLayout accueil = null;
-    MediaPlayer player;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +37,23 @@ public class SplashScreenActivity extends Activity {
                 Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);
+
+                if(mp != null){
+                    mp.stop();
+                }
             }
         });
 
         initializeDB();
 
         startBlink();
+
+        mp = MediaPlayer.create(this,R.raw.splashscreen_music);
+        if(mp != null) {
+            mp.setLooping(true); // Set looping
+            mp.setVolume(100, 100);
+            mp.start();
+        }
     }
 
     private void initializeDB() {

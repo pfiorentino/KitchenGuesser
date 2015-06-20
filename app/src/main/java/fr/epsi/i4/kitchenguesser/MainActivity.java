@@ -28,6 +28,8 @@ public class MainActivity extends ActionBarActivity {
     private Question currentQuestion;
     private TextView questionTextView;
 
+    public MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,14 @@ public class MainActivity extends ActionBarActivity {
 
         Game.getInstance().init(this.getApplicationContext());
         currentQuestion = Game.getInstance().getRandomQuestion();
+
+        mp = MediaPlayer.create(MainActivity.this,R.raw.ingame_music);
+
+        if(mp != null){
+            mp.setLooping(true); // Set looping
+            mp.setVolume(100, 100);
+            mp.start();
+        }
 
         questionTextView = (TextView) findViewById(R.id.questionTextView);
         questionTextView.setText(currentQuestion.getQuestion());
@@ -118,6 +128,8 @@ public class MainActivity extends ActionBarActivity {
     private void thingFound(Thing thing){
         Intent intent = new Intent(this, ThingFoundActivity.class);
         intent.putExtra("thingId",thing.getId());
+        if(mp != null)
+            mp.stop();
         startActivity(intent);
         finish();
     }

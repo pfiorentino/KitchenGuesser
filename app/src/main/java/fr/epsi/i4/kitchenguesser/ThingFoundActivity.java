@@ -2,6 +2,7 @@ package fr.epsi.i4.kitchenguesser;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -22,11 +23,19 @@ public class ThingFoundActivity extends ActionBarActivity {
     private Button yesAnswer;
     private Button noAnswer;
     private SQLiteDatabase db;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thing_found);
+
+        mp = MediaPlayer.create(ThingFoundActivity.this,R.raw.success_music);
+
+        if(mp != null){
+            mp.setVolume(100, 100);
+            mp.start();
+        }
 
         thing = (TextView) findViewById(R.id.thing_found);
         thingPicture = (ImageView) findViewById(R.id.thing_picture);
