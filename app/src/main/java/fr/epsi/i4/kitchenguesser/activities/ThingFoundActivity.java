@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,10 +12,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import fr.epsi.i4.kitchenguesser.classes.KitchenGuesserOpenHelper;
 import fr.epsi.i4.kitchenguesser.R;
 import fr.epsi.i4.kitchenguesser.classes.Game;
 import fr.epsi.i4.kitchenguesser.classes.GameStep;
+import fr.epsi.i4.kitchenguesser.classes.KitchenGuesserOpenHelper;
 import fr.epsi.i4.kitchenguesser.classes.Utils;
 import fr.epsi.i4.kitchenguesser.entities.Thing;
 import fr.epsi.i4.kitchenguesser.entities.ThingQuestion;
@@ -39,13 +38,6 @@ public class ThingFoundActivity extends ActionBarActivity {
 
         if(mp != null){
             mp.setVolume(100, 100);
-
-            Handler h = new Handler();
-            h.postDelayed(new Runnable() {
-                public void run() {
-                    mp.start();
-                }
-            }, 1000);
             mp.start();
         }
 
@@ -108,9 +100,29 @@ public class ThingFoundActivity extends ActionBarActivity {
     }
 
     @Override
-    public void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
+        if(mp != null){
+            mp.stop();
+        }
         db.close();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mp != null){
+            mp.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mp != null){
+            mp.start();
+        }
     }
 
     private void addMissingAnswers(Thing thing) {

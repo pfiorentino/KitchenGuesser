@@ -3,6 +3,7 @@ package fr.epsi.i4.kitchenguesser.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -31,6 +32,7 @@ public class SelectionThingActivity extends ActionBarActivity {
     private Button buttonAddThing;
     private SQLiteDatabase db;
     private Context context;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,13 @@ public class SelectionThingActivity extends ActionBarActivity {
 
         KitchenGuesserOpenHelper mDbHelper = new KitchenGuesserOpenHelper(this.getApplicationContext());
         db = mDbHelper.getReadableDatabase();
+
+        mp = MediaPlayer.create(SelectionThingActivity.this,R.raw.oh_non);
+
+        if(mp != null) {
+            mp.setVolume(100, 100);
+            mp.start();
+        }
 
         this.context = this;
         final Intent thingFoundIntent = getIntent();
@@ -130,5 +139,30 @@ public class SelectionThingActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mp != null){
+            mp.stop();
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mp != null){
+            mp.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mp != null){
+            mp.start();
+        }
     }
 }

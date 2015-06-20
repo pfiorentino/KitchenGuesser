@@ -3,7 +3,6 @@ package fr.epsi.i4.kitchenguesser.activities;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -110,8 +109,28 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    public void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
+        if(mp != null){
+            mp.stop();
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mp != null){
+            mp.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mp != null){
+            mp.start();
+        }
     }
 
     private void addAnswer(int answer) {
@@ -126,7 +145,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void thingFound(Thing thing){
         Intent intent = new Intent(this, ThingFoundActivity.class);
-        intent.putExtra("thingId",thing.getId());
+        intent.putExtra("thingId", thing.getId());
         if(mp != null)
             mp.stop();
         startActivity(intent);
