@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,13 @@ public class ThingFoundActivity extends ActionBarActivity {
 
         if(mp != null){
             mp.setVolume(100, 100);
+
+            Handler h = new Handler();
+            h.postDelayed(new Runnable() {
+                public void run() {
+                    mp.start();
+                }
+            }, 1000);
             mp.start();
         }
 
