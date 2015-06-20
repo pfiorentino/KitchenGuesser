@@ -72,6 +72,6 @@
         android:id="@+id/imageView3"
         android:src="@drawable/chef_2"
         android:scaleType="fitStart"
-        android:layout_marginBottom="-35dp" />
+        android:layout_marginBottom="-36dp" />
 
 </RelativeLayout>
