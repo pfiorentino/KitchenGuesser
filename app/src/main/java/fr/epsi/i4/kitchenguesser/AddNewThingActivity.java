@@ -106,9 +106,9 @@ public class AddNewThingActivity extends ActionBarActivity {
                 if (isValid) {
                     Toast.makeText(getApplicationContext(), "Base de donnée mise à jour :) ", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(AddNewThingActivity.this, PlayAgainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), PlayAgainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    finish();
                 } else {
                     Log.d("error", "Hhhmmmm flag isn't set to true...");
                 }

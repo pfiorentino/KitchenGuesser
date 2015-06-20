@@ -88,7 +88,6 @@ public class SelectionThingActivity extends ActionBarActivity {
                         intent.putExtra("thingFoundName",thingFoundIntent.getStringExtra("thingFoundName"));
 
                         startActivity(intent);
-                        finish();
                     }
                 });
 
@@ -109,7 +108,6 @@ public class SelectionThingActivity extends ActionBarActivity {
                 intent.putExtra("searchString", searchField.getText().toString());
                 intent.putExtra("thingFoundName", thingFoundIntent.getStringExtra("thingFoundName"));
                 startActivity(intent);
-                finish();
             }
         });
     }

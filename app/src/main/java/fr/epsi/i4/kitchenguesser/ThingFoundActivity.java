@@ -49,8 +49,8 @@ public class ThingFoundActivity extends ActionBarActivity {
                 addMissingAnswers(thingFound);
 
                 Intent intent = new Intent(ThingFoundActivity.this, PlayAgainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -58,9 +58,8 @@ public class ThingFoundActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ThingFoundActivity.this,SelectionThingActivity.class);
-                intent.putExtra("thingFoundName",thingFound.getName());
+                intent.putExtra("thingFoundName", thingFound.getName());
                 startActivity(intent);
-                finish();
             }
         });
     }
