@@ -2,6 +2,7 @@ package fr.epsi.i4.kitchenguesser;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -258,8 +259,15 @@ public class MainActivity extends ActionBarActivity {
         finish();
     }
 
+    private boolean rollBack() {
+        //Log.d("");
+        return true;
+    }
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (!rollBack()){
+            super.onBackPressed();
+        }
     }
 }
