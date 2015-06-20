@@ -68,6 +68,13 @@ public class Thing implements BaseColumns, Comparable<Thing> {
             score += heuristic[givenAnswer-1][expectedAnswer-1];
     }
 
+    public void rollBackScore(int questionId, int givenAnswer) {
+        int expectedAnswer = getAnswer(questionId);
+
+        if (expectedAnswer > 0)
+            score -= heuristic[givenAnswer-1][expectedAnswer-1];
+    }
+
     @Override
     public String toString(){
         String message = "";

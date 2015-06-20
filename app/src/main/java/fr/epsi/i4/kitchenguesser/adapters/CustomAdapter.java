@@ -1,4 +1,4 @@
-package fr.epsi.i4.kitchenguesser;
+package fr.epsi.i4.kitchenguesser.adapters;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;

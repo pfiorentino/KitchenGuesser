@@ -1,7 +1,6 @@
-package fr.epsi.i4.kitchenguesser;
+package fr.epsi.i4.kitchenguesser.activities;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -12,16 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
+import fr.epsi.i4.kitchenguesser.R;
+import fr.epsi.i4.kitchenguesser.classes.Game;
 import fr.epsi.i4.kitchenguesser.entities.Question;
 import fr.epsi.i4.kitchenguesser.entities.Thing;
-import fr.epsi.i4.kitchenguesser.entities.UserAnswer;
 
 
 public class MainActivity extends ActionBarActivity {

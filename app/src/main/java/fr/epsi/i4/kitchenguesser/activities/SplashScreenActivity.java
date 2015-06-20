@@ -1,9 +1,8 @@
-package fr.epsi.i4.kitchenguesser;
+package fr.epsi.i4.kitchenguesser.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +19,10 @@ import java.io.InputStream;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
+
+import fr.epsi.i4.kitchenguesser.classes.KitchenGuesserOpenHelper;
+import fr.epsi.i4.kitchenguesser.R;
+import fr.epsi.i4.kitchenguesser.classes.Utils;
 
 public class SplashScreenActivity extends Activity {
     private RelativeLayout accueil = null;

@@ -1,4 +1,4 @@
-package fr.epsi.i4.kitchenguesser;
+package fr.epsi.i4.kitchenguesser.activities;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import fr.epsi.i4.kitchenguesser.classes.KitchenGuesserOpenHelper;
+import fr.epsi.i4.kitchenguesser.R;
 import fr.epsi.i4.kitchenguesser.entities.Question;
 import fr.epsi.i4.kitchenguesser.entities.Thing;
 import fr.epsi.i4.kitchenguesser.entities.ThingQuestion;

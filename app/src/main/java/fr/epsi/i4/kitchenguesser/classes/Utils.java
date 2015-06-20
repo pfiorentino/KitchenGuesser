@@ -1,4 +1,4 @@
-package fr.epsi.i4.kitchenguesser;
+package fr.epsi.i4.kitchenguesser.classes;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

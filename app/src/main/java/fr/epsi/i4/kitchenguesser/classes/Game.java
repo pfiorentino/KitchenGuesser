@@ -1,4 +1,4 @@
-package fr.epsi.i4.kitchenguesser;
+package fr.epsi.i4.kitchenguesser.classes;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,7 +13,6 @@ import java.util.Random;
 
 import fr.epsi.i4.kitchenguesser.entities.Question;
 import fr.epsi.i4.kitchenguesser.entities.Thing;
-import fr.epsi.i4.kitchenguesser.entities.UserAnswer;
 
 /**
  * Created by paul on 19/06/2015.
@@ -33,7 +32,7 @@ public class Game {
     private HashMap<Integer, Question> questions;
     private ArrayList<Thing> things;
 
-    private ArrayList<UserAnswer> currentGame;
+    private ArrayList<GameStep> currentGame;
 
     public static Game getInstance() {
         if (_instance == null){
@@ -73,6 +72,14 @@ public class Game {
         Collections.sort(things);
     }
 
+    private void rollBackThingsScore(int questionId, int answer) {
+        for (Thing thing : things) {
+            thing.rollBackScore(questionId, answer);
+        }
+
+        Collections.sort(things);
+    }
+
     private void cleanThingsList() {
         int highScore = things.get(0).getScore();
         for (int i = things.size()-1; i >= 0; i--) {
@@ -101,7 +108,7 @@ public class Game {
         return output;
     }
 
-    public ArrayList<UserAnswer> getCurrentGame() {
+    public ArrayList<GameStep> getCurrentGame() {
         return this.currentGame;
     }
 
@@ -126,10 +133,6 @@ public class Game {
         for (Question question : Question.findAll(db)){
             questions.put(question.getId(), question);
         }
-    }
-
-    public Question rollBack() {
-        return null;
     }
 
     public Question getRandomQuestion(){
@@ -159,10 +162,21 @@ public class Game {
         return bestQuestion;
     }
 
+    public Question rollBack() {
+        GameStep stepToCancel = currentGame.get(currentGame.size() - 1);
+
+        
+
+        rollBackThingsScore(stepToCancel.getQuestionId(), stepToCancel.getAnswer());
+
+        return null;
+    }
+
     public Thing addAnswer(Question question, int answer) {
         Thing thingFound = null;
 
-        this.currentGame.add(new UserAnswer(question.getId(), answer));
+        GameStep currentStep = new GameStep(question.getId(), answer);
+
         updateThingsScore(question.getId(), answer);
 
         if (this.currentGame.size() >= FIRST_QUESTION_TO_CLEAN) {
@@ -182,12 +196,14 @@ public class Game {
                 if (bestThings.size() > 1){
                     things = (ArrayList) bestThings;
                 } else {
-                    return things.get(0);
+                    thingFound = things.get(0);
                 }
             }
         } else {
-            return things.get(0);
+            thingFound = things.get(0);
         }
+
+        this.currentGame.add(currentStep);
 
         return thingFound;
     }

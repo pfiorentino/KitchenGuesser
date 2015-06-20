@@ -1,4 +1,4 @@
-package fr.epsi.i4.kitchenguesser;
+package fr.epsi.i4.kitchenguesser.activities;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,9 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import fr.epsi.i4.kitchenguesser.classes.KitchenGuesserOpenHelper;
+import fr.epsi.i4.kitchenguesser.R;
+import fr.epsi.i4.kitchenguesser.classes.Game;
+import fr.epsi.i4.kitchenguesser.classes.GameStep;
+import fr.epsi.i4.kitchenguesser.classes.Utils;
 import fr.epsi.i4.kitchenguesser.entities.Thing;
 import fr.epsi.i4.kitchenguesser.entities.ThingQuestion;
-import fr.epsi.i4.kitchenguesser.entities.UserAnswer;
 
 
 public class ThingFoundActivity extends ActionBarActivity {
@@ -102,7 +106,7 @@ public class ThingFoundActivity extends ActionBarActivity {
     }
 
     private void addMissingAnswers(Thing thing) {
-        for (UserAnswer answer : Game.getInstance().getCurrentGame()){
+        for (GameStep answer : Game.getInstance().getCurrentGame()){
             ThingQuestion tq = new ThingQuestion(0, thing.getId(), answer.getQuestionId(), answer.getValue());
             ThingQuestion.addThingQuestion(tq, db);
             //select * from things_questions where thing_id = 3;

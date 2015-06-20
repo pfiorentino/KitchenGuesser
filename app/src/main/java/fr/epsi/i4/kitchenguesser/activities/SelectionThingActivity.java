@@ -1,4 +1,4 @@
-package fr.epsi.i4.kitchenguesser;
+package fr.epsi.i4.kitchenguesser.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.epsi.i4.kitchenguesser.adapters.CustomAdapter;
+import fr.epsi.i4.kitchenguesser.classes.KitchenGuesserOpenHelper;
+import fr.epsi.i4.kitchenguesser.R;
 import fr.epsi.i4.kitchenguesser.entities.Thing;
 
 
