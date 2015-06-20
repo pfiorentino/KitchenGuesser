@@ -30,24 +30,17 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         Game.getInstance().init(this.getApplicationContext());
-        currentQuestion = Game.getInstance().getRandomQuestion();
+
+        questionTextView = (TextView) findViewById(R.id.questionTextView);
+        setCurrentQuestion(Game.getInstance().getRandomQuestion());
 
         mp = MediaPlayer.create(MainActivity.this,R.raw.ingame_music);
 
-        if(mp != null){
-            mp.setLooping(true); // Set looping
+        if (mp != null){
+            mp.setLooping(true);
             mp.setVolume(100, 100);
-            Handler h = new Handler();
-            h.postDelayed(new Runnable() {
-                public void run() {
-                    mp.start();
-                }
-            }, 1000);
             mp.start();
         }
-
-        questionTextView = (TextView) findViewById(R.id.questionTextView);
-        questionTextView.setText(currentQuestion.getQuestion());
 
         Button yesButton = (Button) findViewById(R.id.yesButton);
         yesButton.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +103,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if (!rollBack()){
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public void onDestroy(){
         super.onDestroy();
     }
@@ -118,8 +118,7 @@ public class MainActivity extends ActionBarActivity {
         Thing thingFound = Game.getInstance().addAnswer(currentQuestion, answer);
 
         if (thingFound == null) {
-            currentQuestion = Game.getInstance().getBestQuestion();
-            questionTextView.setText(currentQuestion.getQuestion());
+            setCurrentQuestion(Game.getInstance().getBestQuestion());
         } else {
             thingFound(thingFound);
         }
@@ -131,7 +130,6 @@ public class MainActivity extends ActionBarActivity {
         if(mp != null)
             mp.stop();
         startActivity(intent);
-        finish();
     }
 
     private boolean rollBack() {
@@ -139,13 +137,16 @@ public class MainActivity extends ActionBarActivity {
 
         Question lastQuestion = Game.getInstance().rollBack();
 
-        return lastQuestion != null;
+        if (lastQuestion != null){
+            setCurrentQuestion(lastQuestion);
+            return true;
+        }
+
+        return false;
     }
 
-    @Override
-    public void onBackPressed() {
-        if (!rollBack()){
-            super.onBackPressed();
-        }
+    private void setCurrentQuestion(Question question) {
+        this.currentQuestion = question;
+        questionTextView.setText(this.currentQuestion.getQuestion());
     }
 }

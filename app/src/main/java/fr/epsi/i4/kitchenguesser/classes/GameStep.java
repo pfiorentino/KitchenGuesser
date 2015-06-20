@@ -27,6 +27,10 @@ public class GameStep {
         return this.answer;
     }
 
+    public ArrayList<Thing> getDeletedThings() {
+        return deletedThings;
+    }
+
     public void addDeletedThing(Thing thing){
         deletedThings.add(thing);
     }

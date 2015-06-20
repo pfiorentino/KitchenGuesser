@@ -78,10 +78,10 @@ public class Thing implements BaseColumns, Comparable<Thing> {
     @Override
     public String toString(){
         String message = "";
-        message += this.name+"("+this.score+")\n";
-        for (Map.Entry<Integer, Integer> entry : this.answers.entrySet()) {
+        message += this.name+"("+this.score+")";
+        /*for (Map.Entry<Integer, Integer> entry : this.answers.entrySet()) {
             message += "Key map : "+entry.getKey()+"\t - \t"+"Value map : "+entry.getValue()+"\n";
-        }
+        }*/
         return message;
     }
 

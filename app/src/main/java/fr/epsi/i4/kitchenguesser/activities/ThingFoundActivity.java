@@ -114,10 +114,9 @@ public class ThingFoundActivity extends ActionBarActivity {
     }
 
     private void addMissingAnswers(Thing thing) {
-        for (GameStep answer : Game.getInstance().getCurrentGame()){
-            ThingQuestion tq = new ThingQuestion(0, thing.getId(), answer.getQuestionId(), answer.getValue());
+        for (GameStep step : Game.getInstance().getCurrentGame()){
+            ThingQuestion tq = new ThingQuestion(0, thing.getId(), step.getQuestionId(), step.getAnswer());
             ThingQuestion.addThingQuestion(tq, db);
-            //select * from things_questions where thing_id = 3;
         }
     }
 }

@@ -66,6 +66,19 @@ public class Question implements BaseColumns {
         return questions;
     }
 
+    public static Question findById(int id, SQLiteDatabase db) {
+        Question question = null;
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE "+COLUMN_NAME_ID+" = "+id;
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            question = new Question(
+                    cursor.getInt( cursor.getColumnIndexOrThrow(COLUMN_NAME_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_KEYWORD)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_QUESTION)));
+        }
+        return question;
+    }
+
     public static Question findByTitle(String title, SQLiteDatabase db) {
         Question question = null;
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE "+COLUMN_NAME_QUESTION+" = \""+title+"\"";

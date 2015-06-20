@@ -163,16 +163,31 @@ public class Game {
     }
 
     public Question rollBack() {
-        GameStep stepToCancel = currentGame.get(currentGame.size() - 1);
+        Question removedQuestion = null;
 
-        
+        if (currentGame.size() > 0) {
+            GameStep stepToCancel = currentGame.get(currentGame.size() - 1);
 
-        rollBackThingsScore(stepToCancel.getQuestionId(), stepToCancel.getAnswer());
+            removedQuestion = Question.findById(stepToCancel.getQuestionId(), db);
+            questions.put(removedQuestion.getId(), removedQuestion);
 
-        return null;
+            for (Thing thing : stepToCancel.getDeletedThings()) {
+                things.add(thing);
+            }
+
+            rollBackThingsScore(stepToCancel.getQuestionId(), stepToCancel.getAnswer());
+
+            currentGame.remove(stepToCancel);
+        }
+
+        Log.d("things", things.toString());
+
+        return removedQuestion;
     }
 
     public Thing addAnswer(Question question, int answer) {
+        Log.d("things", things.toString());
+
         Thing thingFound = null;
 
         GameStep currentStep = new GameStep(question.getId(), answer);
