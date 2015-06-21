@@ -15,31 +15,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/thing_found"
         android:id="@+id/thing_found_sentence"
-        android:layout_marginTop="0dp"
         android:textAlignment="center"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:textColor="@android:color/white"
         android:layout_marginBottom="10dp" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/thing_picture"
-            android:background="@drawable/picture_background"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/thing_1"
-            android:cropToPadding="false"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/thing_image_access"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal" />
-    </FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,10 +32,24 @@
         android:textColor="@android:color/white"
         android:text="@string/thing_name" />
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="0dip"
-        android:layout_weight="1"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/thing_picture"
+            android:background="@drawable/picture_background"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/thing_0"
+            android:cropToPadding="false"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/thing_image_access"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
+    </FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"

@@ -153,8 +153,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private boolean rollBack() {
-        Log.d("RollBack", "On roll back (enfin on essaye)");
-
         Question lastQuestion = Game.getInstance().rollBack();
 
         if (lastQuestion != null){

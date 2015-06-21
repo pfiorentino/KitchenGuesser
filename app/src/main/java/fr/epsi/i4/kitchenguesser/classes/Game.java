@@ -180,14 +180,10 @@ public class Game {
             currentGame.remove(stepToCancel);
         }
 
-        Log.d("things", things.toString());
-
         return removedQuestion;
     }
 
     public Thing addAnswer(Question question, int answer) {
-        Log.d("things", things.toString());
-
         Thing thingFound = null;
 
         GameStep currentStep = new GameStep(question.getId(), answer);

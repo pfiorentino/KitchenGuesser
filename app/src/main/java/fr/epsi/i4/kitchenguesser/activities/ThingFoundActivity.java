@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +54,7 @@ public class ThingFoundActivity extends ActionBarActivity {
         KitchenGuesserOpenHelper mDbHelper = new KitchenGuesserOpenHelper(this.getApplicationContext());
         db = mDbHelper.getReadableDatabase();
 
-        final Thing thingFound = Thing.findById(thingId,db);
+        final Thing thingFound = Thing.findById(thingId, db);
         thing.setText(Utils.ucfirst(thingFound.getName()));
 
         yesAnswer.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +63,7 @@ public class ThingFoundActivity extends ActionBarActivity {
                 addMissingAnswers(thingFound);
 
                 Intent intent = new Intent(ThingFoundActivity.this, PlayAgainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
