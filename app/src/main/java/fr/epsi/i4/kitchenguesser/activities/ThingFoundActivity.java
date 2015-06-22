@@ -60,7 +60,7 @@ public class ThingFoundActivity extends ActionBarActivity {
         yesAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addMissingAnswers(thingFound);
+                Game.getInstance().addMissingAnswers(thingFound);
 
                 Intent intent = new Intent(ThingFoundActivity.this, PlayAgainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
@@ -101,13 +101,6 @@ public class ThingFoundActivity extends ActionBarActivity {
         super.onResume();
         if(mp != null){
             mp.start();
-        }
-    }
-
-    private void addMissingAnswers(Thing thing) {
-        for (GameStep step : Game.getInstance().getCurrentGame()){
-            ThingQuestion tq = new ThingQuestion(0, thing.getId(), step.getQuestionId(), step.getAnswer());
-            ThingQuestion.addThingQuestion(tq, db);
         }
     }
 }

@@ -13,6 +13,7 @@ import java.util.Random;
 
 import fr.epsi.i4.kitchenguesser.entities.Question;
 import fr.epsi.i4.kitchenguesser.entities.Thing;
+import fr.epsi.i4.kitchenguesser.entities.ThingQuestion;
 
 /**
  * Created by paul on 19/06/2015.
@@ -216,6 +217,15 @@ public class Game {
 
         this.currentGame.add(currentStep);
 
+        Log.d("things", things.toString());
+
         return thingFound;
+    }
+
+    public void addMissingAnswers(Thing thing) {
+        for (GameStep step : currentGame){
+            ThingQuestion tq = new ThingQuestion(0, thing.getId(), step.getQuestionId(), step.getAnswer());
+            ThingQuestion.addThingQuestion(tq, db);
+        }
     }
 }

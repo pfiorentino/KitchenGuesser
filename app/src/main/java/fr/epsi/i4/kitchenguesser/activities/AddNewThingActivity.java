@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import fr.epsi.i4.kitchenguesser.classes.Game;
 import fr.epsi.i4.kitchenguesser.classes.KitchenGuesserOpenHelper;
 import fr.epsi.i4.kitchenguesser.R;
 import fr.epsi.i4.kitchenguesser.entities.Question;
@@ -131,6 +132,8 @@ public class AddNewThingActivity extends ActionBarActivity {
 
         ThingQuestion thingQuestionForThingFound = new ThingQuestion(0,thingFound.getId(),questionObject.getId(),answerThingFound);
         ThingQuestion.addThingQuestion(thingQuestionForThingFound,db);
+
+        Game.getInstance().addMissingAnswers(thingGiven);
     }
 
     public void addThingAndQuestion(String thingFoundName, String thingName, String question, int answer, int answerThingFound){
