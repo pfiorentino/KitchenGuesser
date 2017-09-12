@@ -1,2 +1,0 @@
-# KitchenGuesser
-Projet IA
